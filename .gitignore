@@ -47,5 +47,5 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-/vender
+/vendor
 .env
