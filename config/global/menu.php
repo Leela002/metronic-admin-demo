@@ -226,6 +226,32 @@ return array(
                 ),
             ),
         ),
+             ////Master
+             array(
+                'title'      => 'Master',
+                'icon'       => array(
+                    'svg'  => theme()->getSvgIcon("demo1/media/icons/duotune/communication/com006.svg", "svg-icon-2"),
+                    'font' => '<i class="bi bi-person fs-2"></i>',
+                ),
+                'classes'    => array('item' => 'menu-accordion'),
+                'attributes' => array(
+                    "data-kt-menu-trigger" => "click",
+                ),
+                'sub'        => array(
+                    'class' => 'menu-sub-accordion menu-active-bg',
+                    'items' => array(
+                       
+                        array(
+                            'title'  => 'Roles',
+                            'path'   => 'roles',
+                            'bullet' => '<span class="bullet bullet-dot"></span>',
+                        ),
+                      
+                    ),
+                ),
+            ),
+    
+       
 
         //// Modules
         // array(

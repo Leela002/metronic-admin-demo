@@ -8,6 +8,7 @@ use App\Http\Controllers\Logs\AuditLogsController;
 use App\Http\Controllers\Logs\SystemLogsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Identity\ProfileController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,14 @@ Route::middleware('auth')->group(function () {
         Route::post('profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('profile/destroy/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
+    Route::resource('roles', RolesController::class)->only(['index']);
+
+    Route::get('create_role', [RolesController::class, 'create'])->name('create_role');
+    Route::post('add_role', [RolesController::class, 'store'])->name('add_role');
+    Route::get('edit_role/{id}', [RolesController::class, 'edit'])->name('edit_role');
+    Route::post('update_role/{id}', [RolesController::class, 'update'])->name('update_role');
+    Route::delete('role/destroy/{id}', [RolesController::class, 'destroy'])->name('role.destroy');
+    Route::get('role/view/{id}', [RolesController::class, 'view'])->name('role.view');
 
     // Logs pages
     Route::prefix('log')->name('log.')->group(function () {
