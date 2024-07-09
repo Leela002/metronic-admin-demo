@@ -204,7 +204,7 @@ return array(
 
         //// Employee Profile
          array(
-            'title'      => 'Employee Profile',
+            'title'      => 'Client Profile',
             'icon'       => array(
                 'svg'  => theme()->getSvgIcon("demo1/media/icons/duotune/communication/com006.svg", "svg-icon-2"),
                 'font' => '<i class="bi bi-person fs-2"></i>',
@@ -216,13 +216,13 @@ return array(
             'sub'        => array(
                 'class' => 'menu-sub-accordion menu-active-bg',
                 'items' => array(
-                   
+
                     array(
-                        'title'  => 'Profile Details',
+                        'title'  => 'Client Profile Details',
                         'path'   => 'identity/profile',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
-                  
+
                 ),
             ),
         ),
@@ -240,18 +240,18 @@ return array(
                 'sub'        => array(
                     'class' => 'menu-sub-accordion menu-active-bg',
                     'items' => array(
-                       
+
                         array(
                             'title'  => 'Roles',
                             'path'   => 'roles',
                             'bullet' => '<span class="bullet bullet-dot"></span>',
                         ),
-                      
+
                     ),
                 ),
             ),
-    
-       
+
+
 
         //// Modules
         // array(
@@ -423,13 +423,13 @@ return array(
             'sub'        => array(
                 'class' => 'menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px',
                 'items' => array(
-                   
+
                     array(
                         'title'  => 'Profile Details',
                         'path'   => 'identity/profile',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
-                
+
                 ),
             ),
         ),

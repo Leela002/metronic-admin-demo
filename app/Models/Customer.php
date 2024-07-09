@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
-class Profile extends Model
+class Customer extends Model
 {
     use HasFactory;
 
-    protected $table = 'emp_profile';
+    protected $table = 'customer';
     protected $fillable = [
-        'id',
-        'name',
-        'father_name',
-        'mother_name',
-        'cur_address',
+        'emp_id',
+        'first_name',
+        'last_name',
+        'contact',
+        'email',
         'per_address',
         'gender',
         'blood_group',
@@ -26,6 +27,4 @@ class Profile extends Model
         'updated_at',
         'updated_by',
     ];
-       
-   
 }

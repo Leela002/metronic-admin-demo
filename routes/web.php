@@ -7,7 +7,7 @@ use App\Http\Controllers\Documentation\ReferencesController;
 use App\Http\Controllers\Logs\AuditLogsController;
 use App\Http\Controllers\Logs\SystemLogsController;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\Identity\ProfileController;
+use App\Http\Controllers\Identity\CustomerController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -63,12 +63,12 @@ Route::middleware('auth')->group(function () {
     });
     // //profile pages
     Route::prefix('identity')->group(function () {
-        Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
-        Route::get('profile/create', [ProfileController::class, 'create'])->name('profile.create');
-        Route::post('profile/store', [ProfileController::class, 'store'])->name('profile.store');
-        Route::get('profile/edit/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::post('profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
-        Route::get('profile/destroy/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('profile', [CustomerController::class, 'index'])->name('profile.index');
+        Route::get('profile/create', [CustomerController::class, 'create'])->name('profile.create');
+        Route::post('profile/store', [CustomerController::class, 'store'])->name('profile.store');
+        Route::get('profile/edit/{id}', [CustomerController::class, 'edit'])->name('profile.edit');
+        Route::post('profile/update/{id}', [CustomerController::class, 'update'])->name('profile.update');
+        Route::get('profile/destroy/{id}', [CustomerController::class, 'destroy'])->name('profile.destroy');
     });
     Route::resource('roles', RolesController::class)->only(['index']);
 

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateProfileRequest extends FormRequest
+class UpdateCustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +22,18 @@ class UpdateProfileRequest extends FormRequest
      */
     public function rules(): array
     {
+        $customerId = $this->route('id')->id;
+
         return [
-            'name' => 'required|string',
             'emp_id' => 'required|string|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$/',
-            'father_name' => 'required|string',
-            'mother_name' => 'required|string',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'contact' => 'required|string|unique:customer,contact,' . $customerId,
+            'email' => 'required|string|unique:customer,email,' . $customerId,
             'per_address' => 'required|string',
-            'cur_address' => 'required|string',
             'gender' => 'required|string',
             'blood_group' => 'required|string',
-            'dob' => 'required|date', // Assuming date format for date of birth
+            'dob' => 'required|date',
         ];
     }
 
@@ -41,10 +43,9 @@ class UpdateProfileRequest extends FormRequest
      * @return array
      */
     public function messages(): array
-{
-    return [
-        'name.unique' => 'This name is already associated with an existing entry.',
-        'emp_id.unique' => 'This employee ID is already associated with an existing entry.',
-    ];
-}
+    {
+        return [
+            'emp_id.unique' => 'This employee ID is already associated with an existing entry.',
+        ];
+    }
 }
