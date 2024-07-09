@@ -246,13 +246,14 @@ return array(
                             'path'   => 'roles',
                             'bullet' => '<span class="bullet bullet-dot"></span>',
                         ),
-                      
+                        array(
+                            'title'  => 'Parameter Master',
+                            'path'   => 'parameters',
+                            'bullet' => '<span class="bullet bullet-dot"></span>',
+                        ),
                     ),
                 ),
             ),
-    
-       
-
         //// Modules
         // array(
         //     'classes' => array('content' => 'pt-8 pb-2'),
