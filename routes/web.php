@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Account\SettingsController;
+use App\Http\Controllers\ParameterMasterController;
 use App\Http\Controllers\Auth\SocialiteLoginController;
 use App\Http\Controllers\Documentation\LayoutBuilderController;
 use App\Http\Controllers\Documentation\ReferencesController;
@@ -88,6 +89,16 @@ Route::middleware('auth')->group(function () {
     Route::post('update_user/{id}', [UsersController::class, 'update'])->name('update_user');
     Route::delete('user/destroy/{id}', [UsersController::class, 'destroy'])->name('user.destroy');
     Route::get('user/view/{id}', [UsersController::class, 'view'])->name('user.view');
+
+    //Parameter Master
+    Route::resource('parameters',ParameterMasterController::class)->only(['index']);
+
+    Route::get('parameter', [ParameterMasterController::class, 'index'])->name('parameter.index');
+    Route::get('create_parameter', [ParameterMasterController::class, 'create'])->name('create_parameter');
+    Route::post('add_parameter',[ParameterMasterController::class, 'store'])->name('add_parameter');
+    Route::get('edit_parameter/{id}', [ParameterMasterController::class, 'edit'])->name('edit_parameter');
+    Route::post('update_parameter/{id}', [ParameterMasterController::class, 'update'])->name('update_parameter');
+    Route::get('paramter/view/{id}', [ParameterMasterController::class, 'view'])->name('parameter.view');
 
     // Logs pages
     Route::prefix('log')->name('log.')->group(function () {

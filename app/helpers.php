@@ -242,3 +242,32 @@ if (!function_exists('useDemoPath')) {
         return $demo;
     }
 }
+
+if (!function_exists('addJavascriptFile')) {
+    /**
+     * Add custom javascript file to the page
+     *
+     * @param $file
+     *
+     * @return void
+     */
+    function addJavascriptFile($file)
+    {
+        theme()->addJavascriptFile($file);
+    }
+}
+
+
+if (!function_exists('addCssFile')) {
+    /**
+     * Add custom CSS file to the page
+     *
+     * @param $file
+     *
+     * @return void
+     */
+    function addCssFile($file)
+    {
+        theme()->addCssFile($file);
+    }
+}
