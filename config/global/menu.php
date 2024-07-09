@@ -246,7 +246,10 @@ return array(
                             'path'   => 'roles',
                             'bullet' => '<span class="bullet bullet-dot"></span>',
                         ),
-                      
+                        array(
+                            'title' => 'Users',
+                            'path'  => 'users',
+                            'bullet' => '<span class="bullet bullet-dot"></span>',                        ),
                     ),
                 ),
             ),

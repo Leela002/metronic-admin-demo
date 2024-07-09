@@ -99,7 +99,7 @@
                             <th class="min-w-175px text-center">Name</th>
                             <th class="min-w-175px text-center">Guard&nbsp;Name</th>
                             <th class="min-w-175px text-center">Created&nbsp;at</th>
-                            <th class="min-w-175px text-center">Updated&nbsp;at</th>
+                            <!-- <th class="min-w-175px text-center">Updated&nbsp;at</th> -->
                             <th class="min-w-175px text-center">Action</th>
                         </tr>
                     </thead>
@@ -112,13 +112,16 @@
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->name }}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->guard_name }}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->created_at}}</td>
-                                            <td class="p-0 pb-3 w-50px text-center">{{$identity->updated_at}}</td>
+                                            <!-- <td class="p-0 pb-3 w-50px text-center">{{$identity->updated_at}}</td> -->
                                             <td class="p-0 pb-3 w-50px text-center">
                                 <div class="d-flex justify-content-around">
                                 <a href="{{ route('edit_role', $identity->id) }}" class="btn btn-light-primary font-weight-bold mr-2"> View </a>
 
-                                    <a href="{{ route('profile.destroy', $identity->id) }}" class="btn btn-light-danger font-weight-bold mr-2" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
-                                </div>
+                                <form action="{{ route('role.destroy', $identity->id) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-light-danger font-weight-bold mr-2" onclick="return confirm('Are you sure to delete this record?')">Delete</button>
+                    </form>                                </div>
                             </td>
                                             </td>
                                         </tr>

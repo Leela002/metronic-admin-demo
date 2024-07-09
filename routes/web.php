@@ -70,7 +70,8 @@ Route::middleware('auth')->group(function () {
         Route::post('profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('profile/destroy/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
-    Route::resource('roles', RolesController::class)->only(['index']);
+        // //roles
+    Route::get('roles', [RolesController::class, 'index'])->name('roles.index');
 
     Route::get('create_role', [RolesController::class, 'create'])->name('create_role');
     Route::post('add_role', [RolesController::class, 'store'])->name('add_role');
@@ -78,6 +79,15 @@ Route::middleware('auth')->group(function () {
     Route::post('update_role/{id}', [RolesController::class, 'update'])->name('update_role');
     Route::delete('role/destroy/{id}', [RolesController::class, 'destroy'])->name('role.destroy');
     Route::get('role/view/{id}', [RolesController::class, 'view'])->name('role.view');
+
+    // //users
+    Route::resource('users', UsersController::class)->only(['index', 'destroy']);
+    Route::get('create_user', [UsersController::class, 'create'])->name('create_user');
+    Route::post('add_user', [UsersController::class, 'store'])->name('add_user');
+    Route::get('edit_user/{id}', [UsersController::class, 'edit'])->name('edit_user');
+    Route::post('update_user/{id}', [UsersController::class, 'update'])->name('update_user');
+    Route::delete('user/destroy/{id}', [UsersController::class, 'destroy'])->name('user.destroy');
+    Route::get('user/view/{id}', [UsersController::class, 'view'])->name('user.view');
 
     // Logs pages
     Route::prefix('log')->name('log.')->group(function () {

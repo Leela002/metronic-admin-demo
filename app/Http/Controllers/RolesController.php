@@ -104,18 +104,21 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+ public function update(Request $request, $id)
 {
     $request->validate([
         'name' => 'required|unique:roles|max:50',
     ]);
 
-    $role = new Role();
+    $role = Role::find($id);
     $role->name = $request->name;
     $role->guard_name = 'web';
     $role->save();
-      return view('master_data.role.index');
-    }
+
+    $identities = Role::all();
+    return redirect()->route('roles.index')->with('success', 'Role updated successfully');
+}
+
 
     /**
      * Remove the specified resource from storage.
@@ -126,14 +129,14 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        //check users associated with the role before delete
-        $check = User::where('role_id', $id)->first();
-        if($check){
-            return redirect('/roles')->with('danger', 'Role is associated with users');
+        $role = Role::find($id);
+        if ($role) {
+            $role->delete();
+            return redirect()->route('roles.index')->with('success', 'Role deleted successfully');
+        } else {
+            return redirect()->route('roles.index')->with('error', 'Role not found');
         }
-
-        $activity = Role::find($id);
-        // Delete from db
-        $activity->delete();
     }
+    
+    
 }
