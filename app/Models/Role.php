@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Models\Role as SpatieRole;
+use Spatie\Permission\Traits\HasRoles;
 
-class Role extends Model
+class Role extends SpatieRole
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
 
     protected $table = 'roles';
     protected $fillable = [
@@ -18,5 +18,4 @@ class Role extends Model
         'created_at',
         'updated_at',
     ];
-          
 }

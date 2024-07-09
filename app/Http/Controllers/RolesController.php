@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\DataTables\Master\RoleDataTable;
-
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,14 +12,15 @@ use DB;
 
 class RolesController extends Controller
 {
-  
-    // function __construct()
-    // {
-    //     $this->middleware('permission:roles_list|roles_create|roles_edit|roles_delete', ['only' => ['index','show']]);
-    //     $this->middleware('permission:roles_create', ['only' => ['create','store']]);
-    //     $this->middleware('permission:roles_edit', ['only' => ['edit','update']]);
-    //     $this->middleware('permission:roles_delete', ['only' => ['destroy']]);
-    // }
+
+    function __construct()
+    {
+        $this->middleware('permission:roles_list', ['only' => ['index']]);
+        // $this->middleware('permission:roles_create', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:roles_edit', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:roles_delete', ['only' => ['destroy']]);
+
+    }
 
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class RolesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(RoleDataTable $dataTable)
-    {        
+    {
         $identities = Role::all();
         return view('master_data.role.index', ['identities' => $identities]);
     }
@@ -40,8 +40,15 @@ class RolesController extends Controller
      */
     public function create()
     {
-       
-        return view('master_data.role._create');
+
+        $permissions = Permission::all(); //Get all permissions
+        $permission_groups = $permissions->groupBy('group_name')->map(function ($group) {
+            return $group->map(function ($value) {
+                return $value;
+            });
+        });
+        // dd($permission_groups);
+        return view('master_data.role._create', compact('permission_groups'));
     }
 
     /**
@@ -52,19 +59,22 @@ class RolesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {           
+    {
         $request->validate([
             'name' => 'required|unique:roles|max:50',
+            'permissions' => 'required',
         ]);
-    
+
         $role = new Role();
         $role->name = $request->name;
         $role->guard_name = 'web';
         $role->save();
-       
+        if ($request->permissions <> '') {
+            $role->permissions()->attach($request->permissions);
+        }
         return redirect()->route('roles.index')->with('success', 'Role added successfully');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -90,9 +100,9 @@ class RolesController extends Controller
     {
 
         $role = Role::where('id', $id)
-        ->first();
+            ->first();
 
-      
+
         return view('master_data.role._update', ['role' => $role]);
     }
 
@@ -104,20 +114,20 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
- public function update(Request $request, $id)
-{
-    $request->validate([
-        'name' => 'required|unique:roles|max:50',
-    ]);
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|unique:roles|max:50',
+        ]);
 
-    $role = Role::find($id);
-    $role->name = $request->name;
-    $role->guard_name = 'web';
-    $role->save();
+        $role = Role::find($id);
+        $role->name = $request->name;
+        $role->guard_name = 'web';
+        $role->save();
 
-    $identities = Role::all();
-    return redirect()->route('roles.index')->with('success', 'Role updated successfully');
-}
+        $identities = Role::all();
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully');
+    }
 
 
     /**
@@ -137,6 +147,6 @@ class RolesController extends Controller
             return redirect()->route('roles.index')->with('error', 'Role not found');
         }
     }
-    
-    
+
+
 }
