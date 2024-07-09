@@ -247,25 +247,19 @@ return array(
                             'bullet' => '<span class="bullet bullet-dot"></span>',
                         ),
                         array(
-<<<<<<< HEAD
                             'title' => 'Users',
                             'path'  => 'users',
-                            'bullet' => '<span class="bullet bullet-dot"></span>',                        ),
-                    ),
-                ),
-            ),
-
-
-
-=======
+                            'bullet' => '<span class="bullet bullet-dot"></span>',                        
+                        ),
+                        array(
                             'title'  => 'Parameter Master',
                             'path'   => 'parameters',
                             'bullet' => '<span class="bullet bullet-dot"></span>',
-                        ),
                     ),
                 ),
             ),
->>>>>>> dev_omkar
+        ),
+
         //// Modules
         // array(
         //     'classes' => array('content' => 'pt-8 pb-2'),
