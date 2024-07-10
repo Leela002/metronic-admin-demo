@@ -79,13 +79,13 @@
         <div class="card-header cursor-pointer">
             <!--begin::Card title-->
             <div class="card-title m-0">
-                <h3 class="fw-bolder m-0">{{ __('Employee Profile') }}</h3>
+                <h3 class="fw-bolder m-0">{{ __('Customer Profile') }}</h3>
             </div>
             <!--end::Card title-->
 
             <!--begin::Action-->
             <a href="{{ route('profile.create') }}" class="btn btn-primary align-self-center"
-                style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Profile Details') }}</a>
+                style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Customer Details') }}</a>
             <!--end::Action -->
         </div>
 

@@ -25,15 +25,13 @@ class UpdateCustomerRequest extends FormRequest
         $customerId = $this->route('id')->id;
 
         return [
-            'emp_id' => 'required|string|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$/',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'contact' => 'required|string|unique:customer,contact,' . $customerId,
             'email' => 'required|string|unique:customer,email,' . $customerId,
-            'per_address' => 'required|string',
             'gender' => 'required|string',
             'blood_group' => 'required|string',
-            'dob' => 'required|date',
+            'dob' => 'required|date|before:today',
         ];
     }
 
@@ -45,7 +43,7 @@ class UpdateCustomerRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'emp_id.unique' => 'This employee ID is already associated with an existing entry.',
+
         ];
     }
 }
