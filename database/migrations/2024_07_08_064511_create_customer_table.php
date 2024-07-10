@@ -10,12 +10,10 @@ class CreateCustomerTable extends Migration
     {
         Schema::create('customer', function (Blueprint $table) {
             $table->id();
-            $table->string('emp_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('contact');
             $table->string('email');
-            $table->string('per_address');
             $table->enum('gender',['Male', 'Female', 'Other']);
             $table->enum('blood_group', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']);
             $table->date('dob');

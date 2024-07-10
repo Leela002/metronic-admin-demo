@@ -23,15 +23,13 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'emp_id' => 'required|string|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$/|unique:customer',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'contact' => 'required|string|unique:customer',
             'email' => 'required|string|unique:customer',
-            'per_address' => 'required|string',
             'gender' => 'required|string',
             'blood_group' => 'required|string',
-            'dob' => 'required|date', // Assuming date format for date of birth
+            'dob' => 'required|date|before:today', // Assuming date format for date of birth
         ];
     }
 
@@ -43,7 +41,6 @@ class StoreCustomerRequest extends FormRequest
     public function messages(): array
 {
     return [
-        'emp_id.unique' => 'This employee ID is already associated with an existing entry.',
     ];
 }
 }

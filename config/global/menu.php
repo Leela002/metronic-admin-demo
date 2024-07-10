@@ -202,9 +202,9 @@ return array(
             'icon'  => theme()->getSvgIcon("demo1/media/icons/duotune/art/art002.svg", "svg-icon-2"),
         ),
 
-        //// Employee Profile
+        //// Customer Profile
          array(
-            'title'      => 'Client Profile',
+            'title'      => 'Customer Profile',
             'icon'       => array(
                 'svg'  => theme()->getSvgIcon("demo1/media/icons/duotune/communication/com006.svg", "svg-icon-2"),
                 'font' => '<i class="bi bi-person fs-2"></i>',
@@ -218,7 +218,7 @@ return array(
                 'items' => array(
 
                     array(
-                        'title'  => 'Client Profile Details',
+                        'title'  => 'Customer Profile Details',
                         'path'   => 'identity/profile',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
@@ -249,7 +249,7 @@ return array(
                         array(
                             'title' => 'Users',
                             'path'  => 'users',
-                            'bullet' => '<span class="bullet bullet-dot"></span>',                        
+                            'bullet' => '<span class="bullet bullet-dot"></span>',
                         ),
                         array(
                             'title'  => 'Parameter Master',
@@ -421,7 +421,7 @@ return array(
 
         // Account
         array(
-            'title'      => 'Employee Profile',
+            'title'      => 'Customer Profile',
             'classes'    => array('item' => 'menu-lg-down-accordion me-lg-1', 'arrow' => 'd-lg-none'),
             'attributes' => array(
                 'data-kt-menu-trigger'   => "click",

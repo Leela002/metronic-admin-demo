@@ -39,7 +39,7 @@ class CustomerController extends Controller
 
         Customer::create($requestData);
         return redirect()->route('profile.index')
-            ->with('success', 'New employee added successfully.');
+            ->with('success', 'New customer added successfully.');
     }
     public function show(): View
     {
@@ -56,12 +56,10 @@ class CustomerController extends Controller
     public function update(UpdateCustomerRequest $request, Customer $id): RedirectResponse
     {
         $requestData = [];
-        $requestData['emp_id'] = $request->emp_id;
         $requestData['first_name'] = $request->first_name;
         $requestData['last_name'] = $request->last_name;
         $requestData['contact'] = $request->contact;
         $requestData['email'] = $request->email;
-        $requestData['per_address'] = $request->per_address;
         $requestData['gender'] = $request->gender;
         $requestData['blood_group'] = $request->blood_group;
         $requestData['dob'] = $request->dob;
@@ -72,7 +70,7 @@ class CustomerController extends Controller
         // dd($x ,$identity,$request->all());
 
         return redirect()->route('profile.index', ['identity' => $identity])
-            ->with('success', 'Employee profile updated successfully.');
+            ->with('success', 'Customer profile updated successfully.');
     }
 
     public function destroy($id)
@@ -80,6 +78,6 @@ class CustomerController extends Controller
         $identity = Customer::findOrFail($id);
         $identity->delete();
 
-        return redirect()->route('profile.index')->with('success', 'Employee deleted successfully.');
+        return redirect()->route('profile.index')->with('success', 'Customer deleted successfully.');
     }
 }
