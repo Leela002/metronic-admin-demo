@@ -11,7 +11,7 @@ return array(
         // Overview
         array(
             'title' => 'Overview',
-            'path'  => 'documentation/getting-started/overview',
+            'path' => 'documentation/getting-started/overview',
             // 'role' => ['admin'],
             // 'permission' => [],
         ),
@@ -19,24 +19,24 @@ return array(
         // Build
         array(
             'title' => 'Build',
-            'path'  => 'documentation/getting-started/build',
+            'path' => 'documentation/getting-started/build',
         ),
 
         array(
-            'title'      => 'Multi-demo',
+            'title' => 'Multi-demo',
             'attributes' => array("data-kt-menu-trigger" => "click"),
-            'classes'    => array('item' => 'menu-accordion'),
-            'sub'        => array(
+            'classes' => array('item' => 'menu-accordion'),
+            'sub' => array(
                 'class' => 'menu-sub-accordion',
                 'items' => array(
                     array(
-                        'title'  => 'Overview',
-                        'path'   => 'documentation/getting-started/multi-demo/overview',
+                        'title' => 'Overview',
+                        'path' => 'documentation/getting-started/multi-demo/overview',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
                     array(
-                        'title'  => 'Build',
-                        'path'   => 'documentation/getting-started/multi-demo/build',
+                        'title' => 'Build',
+                        'path' => 'documentation/getting-started/multi-demo/build',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
                 ),
@@ -46,25 +46,25 @@ return array(
         // File Structure
         array(
             'title' => 'File Structure',
-            'path'  => 'documentation/getting-started/file-structure',
+            'path' => 'documentation/getting-started/file-structure',
         ),
 
         // Customization
         array(
-            'title'      => 'Customization',
+            'title' => 'Customization',
             'attributes' => array("data-kt-menu-trigger" => "click"),
-            'classes'    => array('item' => 'menu-accordion'),
-            'sub'        => array(
+            'classes' => array('item' => 'menu-accordion'),
+            'sub' => array(
                 'class' => 'menu-sub-accordion',
                 'items' => array(
                     array(
-                        'title'  => 'SASS',
-                        'path'   => 'documentation/getting-started/customization/sass',
+                        'title' => 'SASS',
+                        'path' => 'documentation/getting-started/customization/sass',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
                     array(
-                        'title'  => 'Javascript',
-                        'path'   => 'documentation/getting-started/customization/javascript',
+                        'title' => 'Javascript',
+                        'path' => 'documentation/getting-started/customization/javascript',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
                 ),
@@ -74,32 +74,32 @@ return array(
         // Dark skin
         array(
             'title' => 'Dark Mode Version',
-            'path'  => 'documentation/getting-started/dark-mode',
+            'path' => 'documentation/getting-started/dark-mode',
         ),
 
         // RTL
         array(
             'title' => 'RTL Version',
-            'path'  => 'documentation/getting-started/rtl',
+            'path' => 'documentation/getting-started/rtl',
         ),
 
         // Troubleshoot
         array(
             'title' => 'Troubleshoot',
-            'path'  => 'documentation/getting-started/troubleshoot',
+            'path' => 'documentation/getting-started/troubleshoot',
         ),
 
         // Changelog
         array(
-            'title'            => 'Changelog <span class="badge badge-changelog badge-light-danger bg-hover-danger text-hover-white fw-bold fs-9 px-2 ms-2">v'.theme()->getVersion().'</span>',
+            'title' => 'Changelog <span class="badge badge-changelog badge-light-danger bg-hover-danger text-hover-white fw-bold fs-9 px-2 ms-2">v' . theme()->getVersion() . '</span>',
             'breadcrumb-title' => 'Changelog',
-            'path'             => 'documentation/getting-started/changelog',
+            'path' => 'documentation/getting-started/changelog',
         ),
 
         // References
         array(
             'title' => 'References',
-            'path'  => 'documentation/getting-started/references',
+            'path' => 'documentation/getting-started/references',
         ),
 
 
@@ -116,25 +116,25 @@ return array(
         // General
         array(
             'title' => 'General',
-            'path'  => 'documentation/configuration/general',
+            'path' => 'documentation/configuration/general',
         ),
 
         // Menu
         array(
             'title' => 'Menu',
-            'path'  => 'documentation/configuration/menu',
+            'path' => 'documentation/configuration/menu',
         ),
 
         // Page
         array(
             'title' => 'Page',
-            'path'  => 'documentation/configuration/page',
+            'path' => 'documentation/configuration/page',
         ),
 
         // Page
         array(
             'title' => 'Add NPM Plugin',
-            'path'  => 'documentation/configuration/npm-plugins',
+            'path' => 'documentation/configuration/npm-plugins',
         ),
 
 
@@ -150,15 +150,15 @@ return array(
 
         // DataTables
         array(
-            'title'      => 'DataTables',
-            'classes'    => array('item' => 'menu-accordion'),
+            'title' => 'DataTables',
+            'classes' => array('item' => 'menu-accordion'),
             'attributes' => array("data-kt-menu-trigger" => "click"),
-            'sub'        => array(
+            'sub' => array(
                 'class' => 'menu-sub-accordion',
                 'items' => array(
                     array(
-                        'title'  => 'Overview',
-                        'path'   => 'documentation/general/datatables/overview',
+                        'title' => 'Overview',
+                        'path' => 'documentation/general/datatables/overview',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
                 ),
@@ -168,7 +168,7 @@ return array(
         // Remove demos
         array(
             'title' => 'Remove Demos',
-            'path'  => 'documentation/general/remove-demos',
+            'path' => 'documentation/general/remove-demos',
         ),
 
 
@@ -184,77 +184,77 @@ return array(
 
         array(
             'title' => 'Components',
-            'path'  => '//preview.keenthemes.com/metronic8/demo1/documentation/base/utilities.html',
+            'path' => '//preview.keenthemes.com/metronic8/demo1/documentation/base/utilities.html',
         ),
 
         array(
             'title' => 'Documentation',
-            'path'  => '//preview.keenthemes.com/metronic8/demo1/documentation/getting-started.html',
+            'path' => '//preview.keenthemes.com/metronic8/demo1/documentation/getting-started.html',
         ),
     ),
 
     // Main menu
-    'main'          => array(
+    'main' => array(
         //// Dashboard
         array(
             'title' => 'Dashboard',
-            'path'  => '',
-            'icon'  => theme()->getSvgIcon("demo1/media/icons/duotune/art/art002.svg", "svg-icon-2"),
+            'path' => '',
+            'icon' => theme()->getSvgIcon("demo1/media/icons/duotune/art/art002.svg", "svg-icon-2"),
         ),
 
         //// Employee Profile
-         array(
-            'title'      => 'Client Profile',
-            'icon'       => array(
-                'svg'  => theme()->getSvgIcon("demo1/media/icons/duotune/communication/com006.svg", "svg-icon-2"),
+        array(
+            'title' => 'Client Profile',
+            'icon' => array(
+                'svg' => theme()->getSvgIcon("demo1/media/icons/duotune/communication/com006.svg", "svg-icon-2"),
                 'font' => '<i class="bi bi-person fs-2"></i>',
             ),
-            'classes'    => array('item' => 'menu-accordion'),
+            'classes' => array('item' => 'menu-accordion'),
             'attributes' => array(
                 "data-kt-menu-trigger" => "click",
             ),
-            'sub'        => array(
+            'sub' => array(
                 'class' => 'menu-sub-accordion menu-active-bg',
                 'items' => array(
 
                     array(
-                        'title'  => 'Client Profile Details',
-                        'path'   => 'identity/profile',
+                        'title' => 'Client Profile Details',
+                        'path' => 'identity/profile',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
 
                 ),
             ),
         ),
-             ////Master
-             array(
-                'title'      => 'Master',
-                'icon'       => array(
-                    'svg'  => theme()->getSvgIcon("demo1/media/icons/duotune/communication/com006.svg", "svg-icon-2"),
-                    'font' => '<i class="bi bi-person fs-2"></i>',
-                ),
-                'classes'    => array('item' => 'menu-accordion'),
-                'attributes' => array(
-                    "data-kt-menu-trigger" => "click",
-                ),
-                'sub'        => array(
-                    'class' => 'menu-sub-accordion menu-active-bg',
-                    'items' => array(
+        ////Access Control
+        array(
+            'title' => 'Access Control',
+            'icon' => array(
+                'svg' => theme()->getSvgIcon("demo1/media/icons/duotune/communication/com006.svg", "svg-icon-2"),
+                'font' => '<i class="bi bi-person fs-2"></i>',
+            ),
+            'classes' => array('item' => 'menu-accordion'),
+            'attributes' => array(
+                "data-kt-menu-trigger" => "click",
+            ),
+            'sub' => array(
+                'class' => 'menu-sub-accordion menu-active-bg',
+                'items' => array(
 
-                        array(
-                            'title'  => 'Roles',
-                            'path'   => 'roles',
-                            'bullet' => '<span class="bullet bullet-dot"></span>',
-                        ),
-                        array(
-                            'title' => 'Users',
-                            'path'  => 'users',
-                            'bullet' => '<span class="bullet bullet-dot"></span>',                        
-                        ),
-                        array(
-                            'title'  => 'Parameter Master',
-                            'path'   => 'parameters',
-                            'bullet' => '<span class="bullet bullet-dot"></span>',
+                    array(
+                        'title' => 'Roles',
+                        'path' => 'roles',
+                        'bullet' => '<span class="bullet bullet-dot"></span>',
+                    ),
+                    array(
+                        'title' => 'Users',
+                        'path' => 'users',
+                        'bullet' => '<span class="bullet bullet-dot"></span>',
+                    ),
+                    array(
+                        'title' => 'Parameter Master',
+                        'path' => 'parameters',
+                        'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
                 ),
             ),
@@ -383,11 +383,11 @@ return array(
     ),
 
     // Horizontal menu
-    'horizontal'    => array(
+    'horizontal' => array(
         // Dashboard
         array(
-            'title'   => 'Dashboard',
-            'path'    => '',
+            'title' => 'Dashboard',
+            'path' => '',
             'classes' => array('item' => 'me-lg-1'),
         ),
 
@@ -421,19 +421,19 @@ return array(
 
         // Account
         array(
-            'title'      => 'Employee Profile',
-            'classes'    => array('item' => 'menu-lg-down-accordion me-lg-1', 'arrow' => 'd-lg-none'),
+            'title' => 'Employee Profile',
+            'classes' => array('item' => 'menu-lg-down-accordion me-lg-1', 'arrow' => 'd-lg-none'),
             'attributes' => array(
-                'data-kt-menu-trigger'   => "click",
+                'data-kt-menu-trigger' => "click",
                 'data-kt-menu-placement' => "bottom-start",
             ),
-            'sub'        => array(
+            'sub' => array(
                 'class' => 'menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px',
                 'items' => array(
 
                     array(
-                        'title'  => 'Profile Details',
-                        'path'   => 'identity/profile',
+                        'title' => 'Profile Details',
+                        'path' => 'identity/profile',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
 
