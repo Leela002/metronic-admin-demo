@@ -72,7 +72,7 @@
         @if (Session::has('error'))
         <div class="alert alert-danger">{{ Session::get('error') }}</div>
         @endif
-        <div class="card-header cursor-pointer">
+        <div class="card-header">
             <!--begin::Card title-->
             <div class="card-title m-0">
                 <h3 class="fw-bolder m-0">{{ __('Parameter Master') }}</h3>
@@ -97,9 +97,10 @@
                         <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
                         <th class="min-w-175px text-center">Id</th>
                             <th class="min-w-175px text-center">Parameter Name</th>
-                            <th class="min-w-175px text-center">Slug</th>
-                            <th class="min-w-175px text-center">Value</th>
                             <th class="min-w-175px text-center">Help&nbsp;Text</th>
+                            <th class="min-w-175px text-center">Slug</th>
+                            <th class="min-w-175px text-center">Type</th>
+                            <th class="min-w-175px text-center">Value</th>                            
                             <th class="min-w-175px text-center">Created&nbsp;At</th>
                             <th class="min-w-175px text-center">Updated&nbsp;At</th>
                             <th class="min-w-175px text-center">Created&nbsp;By</th>
@@ -114,9 +115,10 @@
                                         <tr>
                                         <td class="p-0 pb-3 w-50px text-center">{{$identity->id}}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->parameter_name }}</td>
-                                            <td class="p-0 pb-3 w-50px text-center">{{$identity->slug }}</td>
-                                            <td class="p-0 pb-3 w-50px text-center">{{$identity->value }}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->help_text }}</td>
+                                            <td class="p-0 pb-3 w-50px text-center">{{$identity->slug }}</td>
+                                            <td class="p-0 pb-3 w-50px text-center">{{$identity->type }}</td>
+                                            <td class="p-0 pb-3 w-50px text-center">{{$identity->value }}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->created_at}}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->updated_at}}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->created_by}}</td>
@@ -142,7 +144,6 @@
     </div>
     <!-- end::Card -->
     </div>
-  
 </x-base-layout>
 
 

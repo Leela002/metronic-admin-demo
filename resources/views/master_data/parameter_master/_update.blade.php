@@ -11,7 +11,7 @@
         @if (Session::has('danger'))
             <div class="alert alert-danger">{{ Session::get('danger') }}</div>
         @endif
-        <div class="card-header cursor-pointer">
+        <div class="card-header">
             <div class="card-title m-0">
                 <h3 class="fw-bolder m-0">{{ __('Update Parameter') }} {{ $parameter_master->parameter_name }}</h3>
             </div>
