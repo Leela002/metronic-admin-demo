@@ -35,7 +35,7 @@ class CustomerController extends Controller
     {
 
         $requestData = $request->all();
-        $requestData['created_by'] = Auth::user()->email;
+        $requestData['created_by'] = Auth::user()->name;
 
         Customer::create($requestData);
         return redirect()->route('profile.index')
@@ -63,14 +63,14 @@ class CustomerController extends Controller
         $requestData['gender'] = $request->gender;
         $requestData['blood_group'] = $request->blood_group;
         $requestData['dob'] = $request->dob;
-        $requestData['updated_by'] = Auth::user()->email;
+        $requestData['updated_by'] = Auth::user()->name;
 
         $identity = Customer::select()->where('id', $id->id)->update($requestData);
 
         // dd($x ,$identity,$request->all());
 
         return redirect()->route('profile.index', ['identity' => $identity])
-            ->with('success', 'Customer profile updated successfully.');
+            ->with('success', 'Customer updated successfully.');
     }
 
     public function destroy($id)

@@ -51,7 +51,7 @@
                         <div class="card-body p-5">
                             <div class="row mb-5">
                                 <!-- Aligning to the right -->
-                                <h3>Add Customer Profile</h3>
+                                <h3>Add Customer</h3>
                                 <hr class="w-100">
                             </div>
                             <form class="form" action="{{ route('profile.update', $identity->id) }}" method="POST"

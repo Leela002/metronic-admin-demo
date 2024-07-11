@@ -79,13 +79,13 @@
         <div class="card-header cursor-pointer">
             <!--begin::Card title-->
             <div class="card-title m-0">
-                <h3 class="fw-bolder m-0">{{ __('Customer Profile') }}</h3>
+                <h3 class="fw-bolder m-0">{{ __('Customer') }}</h3>
             </div>
             <!--end::Card title-->
 
             <!--begin::Action-->
             <a href="{{ route('profile.create') }}" class="btn btn-primary align-self-center"
-                style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Customer Details') }}</a>
+                style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Customer') }}</a>
             <!--end::Action -->
         </div>
 
@@ -105,6 +105,8 @@
                             <th class="min-w-175px text-center">Gender</th>
                             <th class="min-w-175px text-center">Blood&nbsp;Group</th>
                             <th class="min-w-175px text-center">DOB</th>
+                            <th class="min-w-175px text-center">Created at</th>
+                            <th class="min-w-175px text-center">Updated at</th>
                             <th class="min-w-175px text-center">Created by</th>
                             <th class="min-w-175px text-center">Updated by</th>
                             <th class="min-w-175px text-center">Action</th>
@@ -122,9 +124,15 @@
                                 <td class="p-0 pb-3 w-50px text-center">{{ $identity->gender }}</td>
                                 <td class="p-0 pb-3 w-50px text-center">{{ $identity->blood_group }}</td>
                                 <td class="p-0 pb-3 w-50px text-center">{{ $identity->dob }}</td>
+                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->created_at }}</td>
+                                @if ($identity->updated_at == $identity->created_at)
+                                    <td class="p-0 pb-3 w-50px text-center">Not updated</td>
+                                @else
+                                    <td class="p-0 pb-3 w-50px text-center">{{ $identity->updated_at }}</td>
+                                @endif
                                 <td class="p-0 pb-3 w-50px text-center">{{ $identity->created_by }}</td>
                                 @if ($identity->updated_by == null)
-                                    <td class="p-0 pb-3 w-50px text-center">Not updated till now</td>
+                                    <td class="p-0 pb-3 w-50px text-center">Not updated</td>
                                 @else
                                     <td class="p-0 pb-3 w-50px text-center">{{ $identity->updated_by }}</td>
                                 @endif
