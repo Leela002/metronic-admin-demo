@@ -81,18 +81,17 @@
             <div class="card-title m-0">
                 <h3 class="fw-bolder m-0">{{ __('Users') }}</h3>
             </div>
-            <!--end::Card title-->
-            <a href="{{ theme()->getPageUrl('create_user') }}" class="btn btn-primary align-self-center"
-                style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add User') }}</a>
-
-            <!--begin::Action-->
-
         </div>
 
         <!--begin::Card-->
         <div class="card m-5 p-4">
-            <div class="card-body ">
-
+            <div class="row mb-5 mb-xl-10">
+                <div class="d-flex align-items-center position-relative my-1 w-100">
+                    <input type="text" data-kt-fundcategories-table-filter="search"
+                        class="form-control form-control-solid w-250px ps-13" placeholder="Search" id="mySearchInput" />
+                    <a href="{{ theme()->getPageUrl('create_user') }}" class="btn btn-primary ms-auto"
+                        style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add User') }}</a>
+                </div>
             </div>
             <div class="table-responsive signing_fees">
                 <table class="table dataTable " id="data-table">
@@ -147,5 +146,24 @@
     </div>
     <!-- end::Card -->
     </div>
+    <script>
+        document.getElementById('mySearchInput').addEventListener('keyup', function () {
+            var searchValue = this.value.toLowerCase();
+            var table = document.getElementById('data-table');
+            var rows = table.getElementsByTagName('tr');
 
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName('td');
+                var rowText = '';
+                for (var j = 0; j < cells.length; j++) {
+                    rowText += cells[j].textContent.toLowerCase();
+                }
+                if (rowText.includes(searchValue)) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        });
+    </script>
 </x-base-layout>
