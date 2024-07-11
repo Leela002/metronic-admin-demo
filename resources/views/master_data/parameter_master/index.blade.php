@@ -87,15 +87,13 @@
         <!--begin::Card-->
         <div class="card m-5 p-4">
 
-            <div class="card-body">
-                <div class="row">
+                <div class="row mb-5 mb-xl-10">
                     <div class="d-flex align-items-center position-relative my-1 w-100">
                         <input type="text" data-kt-fundcategories-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search" id="mySearchInput" />
                         <a href="{{ theme()->getPageUrl('create_parameter') }}" class="btn btn-primary ms-auto" style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Parameter') }}</a>
                     </div>
                 </div>
-            </div>
-            
+
             <div class="table-responsive signing_fees">
                 <table class="table dataTable " id="data-table">
                     <!-- begin::Table head -->
