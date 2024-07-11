@@ -74,10 +74,14 @@ class CustomerController extends Controller
     }
 
     public function destroy($id)
-    {
-        $identity = Customer::findOrFail($id);
-        $identity->delete();
+{
+    $identity = Customer::find($id);
 
-        return redirect()->route('profile.index')->with('success', 'Customer deleted successfully.');
+    if($identity) {
+        $identity->delete();
+        return response()->json(['success' => true]);
+    } else {
+        return response()->json(['success' => false]);
     }
+}
 }
