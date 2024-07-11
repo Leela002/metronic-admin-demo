@@ -75,9 +75,10 @@ class ParameterMasterController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ParameterMaster $parameter_master): View
+    public function edit(ParameterMaster $id): View
     {
-        return view('master_data.parameter_master._update', compact('parameter_master'));
+        $identity = ParameterMaster::select()->where('id', $id->id)->first();
+        return view('master_data.parameter_master._update', compact('id', 'identity'));
     }
 
     /**
@@ -86,29 +87,11 @@ class ParameterMasterController extends Controller
     public function update(UpdateParameterMasterRequest $request, ParameterMaster $parameter_master): RedirectResponse
     {
         $requestData = $request->all();
-        $requestData['updated_by'] = Auth::id();
+        $requestData['updated_by'] = Auth::user()->name;
         $parameter_master->update($requestData);
 
-          
-            if (isset($requestData['slug']) && $requestData['slug'] === 'int_rate_direction') {
-               
-                $email = ['sahilj@leometric.com', 'investments@everguardlife.com'];
-              
-                if (isset($requestData['value']) && $requestData['value'] == 0) {
-                    Mail::send('emails.intrest_rate', ['value' =>$requestData['value']], function ($message) use ($email) {
-                        $message->to($email)->subject('Expected Interest Rate Direction Changed to Up');
-                    });
-                } else {
-                    Mail::send('emails.intrest_rate', ['value' =>$requestData['value']], function ($message) use ($email) {
-                        $message->to($email)->subject('Expected Interest Rate Direction Changed to Down');
-                    });
-                }
-            }
-       
-        
-      
         return redirect()->route('parameter.index')
-            ->with('success', 'Client updated successfully.');
+            ->with('success', 'Parameter updated successfully.');
     }
     /**
      * Remove the specified resource from storage.

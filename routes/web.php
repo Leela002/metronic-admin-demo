@@ -97,7 +97,7 @@ Route::middleware('auth')->group(function () {
     Route::get('create_parameter', [ParameterMasterController::class, 'create'])->name('create_parameter');
     Route::post('add_parameter', [ParameterMasterController::class, 'store'])->name('add_parameter');
     Route::get('edit_parameter/{id}', [ParameterMasterController::class, 'edit'])->name('edit_parameter');
-    Route::post('update_parameter/{id}', [ParameterMasterController::class, 'update'])->name('update_parameter');
+    Route::put('update_parameter/{id}', [ParameterMasterController::class, 'update'])->name('update_parameter');
     Route::get('paramter/view/{id}', [ParameterMasterController::class, 'view'])->name('parameter.view');
 
     // Logs pages

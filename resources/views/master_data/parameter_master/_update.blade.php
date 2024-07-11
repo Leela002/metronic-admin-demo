@@ -13,7 +13,7 @@
         @endif
         <div class="card-header">
             <div class="card-title m-0">
-                <h3 class="fw-bolder m-0">{{ __('Update Parameter') }} {{ $parameter_master->parameter_name }}</h3>
+                <h3 class="fw-bolder m-0">{{ __('Update Parameter') }}</h3>
             </div>
         </div>
         <div class="card">
@@ -22,20 +22,21 @@
                     <div class="col-md-12">
                         <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
                             <div class="card-body p-9">
-                                <form name="create_employee" action="{{ url('update_parameter', $parameter_master->id) }}" method="POST">
+                                <form name="create_employee" action="{{ url('update_parameter', $identity->id) }}" method="POST">
                                     @csrf
+                                    @method('PUT')
                                     <div class="py-2">
                                         <div class="row g-9 mb-7">
                                             <div class="col-md-6 fv-row">
                                                 <label class="required fs-6 fw-semibold mb-2">Parameter Name</label>
-                                                <input class="form-control form-control-solid" name="parameter_name" value="{{ old('parameter_name', $parameter_master->parameter_name) }}" />
+                                                <input class="form-control form-control-solid" name="parameter_name" value="{{ old('parameter_name', $identity->parameter_name) }}" />
                                                 @error('parameter_name')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                             <div class="col-md-6 fv-row">
                                                 <label class="required fs-6 fw-semibold mb-2">Help Text</label>
-                                                <input class="form-control form-control-solid" name="help_text" value="{{ old('help_text', $parameter_master->help_text) }}" />
+                                                <input class="form-control form-control-solid" name="help_text" value="{{ old('help_text', $identity->help_text) }}" />
                                                 @error('help_text')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -44,7 +45,7 @@
                                         <div class="row g-9 mb-7">
                                             <div class="col-md-6 fv-row">
                                                 <label class="required fs-6 fw-semibold mb-2">Slug</label>
-                                                <input class="form-control form-control-solid" name="slug" value="{{ old('slug', $parameter_master->slug) }}" />
+                                                <input class="form-control form-control-solid" name="slug" value="{{ old('slug', $identity->slug) }}" />
                                                 @error('slug')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -52,8 +53,8 @@
                                             <div class="col-md-6 fv-row">
                                                 <label class="required fs-6 fw-semibold mb-2">Type</label>
                                                 <select class="form-select form-select-solid" name="type">
-                                                    <option value="0" {{ old('type', $parameter_master->type) == 0 ? 'selected' : '' }}>Text</option>
-                                                    <option value="1" {{ old('type', $parameter_master->type) == 1 ? 'selected' : '' }}>Boolean</option>
+                                                    <option value="0" {{ old('type', $identity->type) == 0 ? 'selected' : '' }}>Text</option>
+                                                    <option value="1" {{ old('type', $identity->type) == 1 ? 'selected' : '' }}>Boolean</option>
                                                 </select>
                                                 @error('type')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -64,7 +65,7 @@
                                             <div class="col-md-6 fv-row">
                                                 <label class="required fs-6 fw-semibold mb-2">Value</label>
                                                 <small>(For Boolean type enter 0 or 1)</small>
-                                                <input class="form-control form-control-solid" name="value" value="{{ old('value', $parameter_master->value) }}" />
+                                                <input class="form-control form-control-solid" name="value" value="{{ old('value', $identity->value) }}" />
                                                 @error('value')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
