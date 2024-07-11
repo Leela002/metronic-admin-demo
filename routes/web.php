@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function () {
         Route::get('profile/create', [CustomerController::class, 'create'])->name('profile.create');
         Route::post('profile/store', [CustomerController::class, 'store'])->name('profile.store');
         Route::get('profile/edit/{id}', [CustomerController::class, 'edit'])->name('profile.edit');
-        Route::post('profile/update/{id}', [CustomerController::class, 'update'])->name('profile.update');
+        Route::put('profile/update/{id}', [CustomerController::class, 'update'])->name('profile.update'); // Change to PUT
         Route::delete('profile/destroy/{id}', [CustomerController::class, 'destroy'])->name('profile.destroy');
     });
     // //roles

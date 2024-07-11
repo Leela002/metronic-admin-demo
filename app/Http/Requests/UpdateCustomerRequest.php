@@ -27,8 +27,8 @@ class UpdateCustomerRequest extends FormRequest
         return [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'contact' => 'required|string|unique:customer,contact,' . $customerId,
-            'email' => 'required|string|unique:customer,email,' . $customerId,
+            'contact' => 'required|string|digits:10|unique:customer,contact,' . $customerId,
+            'email' => 'required|string|email|unique:customer,email,' . $customerId,
             'gender' => 'required|string',
             'blood_group' => 'required|string',
             'dob' => 'required|date|before:today',
