@@ -109,7 +109,7 @@
                                 
                                                     <!--First Name-->
                                                     <label class="required fs-6 fw-semibold mb-2">Value</label>
-                                                    <small>(For Boolean type enter 0 or 1)(For Up = 0/ Down = 1)</small>
+                                                    <small>(For Boolean type enter 0 or 1)</small>
                                                     <input class="form-control form-control-solid" placeholder="" name="value" value="{{ old('value') }}" />
                                                     @error('value')
                                                         <span class="text-danger">{{ $message }}</span>
@@ -130,7 +130,7 @@
                                  <!--end::Button-->
                                  <!--begin::Button-->
                                  <button type="submit" class="btn btn-primary" id="kt_client_submit">
-                                     <span class="indicator-label">submit</span>
+                                     <span class="indicator-label">Submit</span>
                                  </button>
                                  <!--end::Button-->
                              </div>

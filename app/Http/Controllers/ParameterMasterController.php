@@ -53,7 +53,7 @@ class ParameterMasterController extends Controller
     {
         //dd($request->all());
         $requestData = $request->all();
-        $requestData['created_by'] = Auth::user()->id;
+        $requestData['created_by'] = Auth::user()->name;
         ParameterMaster::create($requestData);
 
         // $parameter_master = new ParameterMaster();

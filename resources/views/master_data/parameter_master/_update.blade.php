@@ -13,7 +13,7 @@
         @endif
         <div class="card-header cursor-pointer">
             <div class="card-title m-0">
-                <h3 class="fw-bolder m-0">{{ __('Update Parameter') }} - {{ $parameter_master->parameter_name }}</h3>
+                <h3 class="fw-bolder m-0">{{ __('Update Parameter') }} {{ $parameter_master->parameter_name }}</h3>
             </div>
         </div>
         <div class="card">
@@ -63,17 +63,22 @@
                                         <div class="row g-9 mb-7">
                                             <div class="col-md-6 fv-row">
                                                 <label class="required fs-6 fw-semibold mb-2">Value</label>
-                                                <small>(For Boolean type enter 0 or 1)(For Up = 0/ Down = 1)</small>
+                                                <small>(For Boolean type enter 0 or 1)</small>
                                                 <input class="form-control form-control-solid" name="value" value="{{ old('value', $parameter_master->value) }}" />
                                                 @error('value')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="float-end mt-3">
-                                                <button type="submit" class="btn btn-sm btn-primary me-3">Submit</button>
-                                            </div>
+                                        <div class="d-flex justify-content-end align-items-center mt-12">
+                                            <!--begin::Button-->
+                                            <a href="{{ route('parameter.index') }}" class="btn btn-secondary me-5 px-4 m-2">Cancel</a>
+                                            <!--end::Button-->
+                                            <!--begin::Button-->
+                                            <button type="submit" class="btn btn-primary" id="kt_client_submit">
+                                                <span class="indicator-label">Update</span>
+                                            </button>
+                                            <!--end::Button-->
                                         </div>
                                     </div>
                                 </form>

@@ -101,6 +101,9 @@
                             <th class="min-w-175px text-center">Value</th>
                             <th class="min-w-175px text-center">Help&nbsp;Text</th>
                             <th class="min-w-175px text-center">Created&nbsp;At</th>
+                            <th class="min-w-175px text-center">Updated&nbsp;At</th>
+                            <th class="min-w-175px text-center">Created&nbsp;By</th>
+                            <th class="min-w-175px text-center">Updated&nbsp;By</th>
                             <th class="min-w-175px text-center">Action</th>
                         </tr>
                     </thead>
@@ -115,6 +118,13 @@
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->value }}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->help_text }}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->created_at}}</td>
+                                            <td class="p-0 pb-3 w-50px text-center">{{$identity->updated_at}}</td>
+                                            <td class="p-0 pb-3 w-50px text-center">{{$identity->created_by}}</td>
+                                            @if ($identity->updated_by == null)
+                                                <td class="p-0 pb-3 w-50px text-center">Not updated</td>
+                                            @else
+                                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->updated_by }}</td>
+                                            @endif
                                             <td class="p-0 pb-3 w-50px text-center">
                                 <div class="d-flex justify-content-around">
                                 <a href="{{ route('edit_parameter', $identity->id) }}" class="btn btn-light-primary font-weight-bold mr-2"> View </a>
