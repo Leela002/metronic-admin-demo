@@ -69,9 +69,9 @@ Route::middleware('auth')->group(function () {
         Route::post('profile/store', [CustomerController::class, 'store'])->name('profile.store');
         Route::get('profile/edit/{id}', [CustomerController::class, 'edit'])->name('profile.edit');
         Route::post('profile/update/{id}', [CustomerController::class, 'update'])->name('profile.update');
-        Route::get('profile/destroy/{id}', [CustomerController::class, 'destroy'])->name('profile.destroy');
+        Route::delete('profile/destroy/{id}', [CustomerController::class, 'destroy'])->name('profile.destroy');
     });
-        // //roles
+    // //roles
     Route::get('roles', [RolesController::class, 'index'])->name('roles.index');
 
     Route::get('create_role', [RolesController::class, 'create'])->name('create_role');
@@ -91,11 +91,11 @@ Route::middleware('auth')->group(function () {
     Route::get('user/view/{id}', [UsersController::class, 'view'])->name('user.view');
 
     //Parameter Master
-    Route::resource('parameters',ParameterMasterController::class)->only(['index']);
+    Route::resource('parameters', ParameterMasterController::class)->only(['index']);
 
     Route::get('parameter', [ParameterMasterController::class, 'index'])->name('parameter.index');
     Route::get('create_parameter', [ParameterMasterController::class, 'create'])->name('create_parameter');
-    Route::post('add_parameter',[ParameterMasterController::class, 'store'])->name('add_parameter');
+    Route::post('add_parameter', [ParameterMasterController::class, 'store'])->name('add_parameter');
     Route::get('edit_parameter/{id}', [ParameterMasterController::class, 'edit'])->name('edit_parameter');
     Route::post('update_parameter/{id}', [ParameterMasterController::class, 'update'])->name('update_parameter');
     Route::get('paramter/view/{id}', [ParameterMasterController::class, 'view'])->name('parameter.view');

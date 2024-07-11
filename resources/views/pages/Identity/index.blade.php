@@ -99,17 +99,18 @@
                     <!-- begin::Table head -->
                     <thead>
                         <tr class="fs-7 fw-bold text-gray-400">
-                            <th class="min-w-175px text-center">Id</th>
-                            <th class="min-w-175px text-center">Full&nbsp;Name</th>
-                            <th class="min-w-175px text-center">Email Id.</th>
-                            <th class="min-w-175px text-center">Gender</th>
-                            <th class="min-w-175px text-center">Blood&nbsp;Group</th>
-                            <th class="min-w-175px text-center">DOB</th>
-                            <th class="min-w-175px text-center">Created at</th>
-                            <th class="min-w-175px text-center">Updated at</th>
-                            <th class="min-w-175px text-center">Created by</th>
-                            <th class="min-w-175px text-center">Updated by</th>
-                            <th class="min-w-175px text-center">Action</th>
+                            <th class="p-2 min-w-175px text-center">Id</th>
+                            <th class="p-2 min-w-175px text-center">Full&nbsp;Name</th>
+                            <th class="p-2 min-w-175px text-center">Email</th>
+                            <th class="p-2 min-w-175px text-center">Mobile</th>
+                            <th class="p-2 min-w-175px text-center">Gender</th>
+                            <th class="p-2 min-w-175px text-center">Blood&nbsp;Group</th>
+                            <th class="p-2 min-w-175px text-center">DOB</th>
+                            <th class="p-2 min-w-175px text-center">Created at</th>
+                            <th class="p-2 min-w-175px text-center">Updated at</th>
+                            <th class="p-2 min-w-175px text-center">Created by</th>
+                            <th class="p-2 min-w-175px text-center">Updated by</th>
+                            <th class="p-2 min-w-175px text-center">Action</th>
                         </tr>
                     </thead>
                     <!-- end::Table head -->
@@ -117,34 +118,33 @@
                     <tbody >
                         @foreach ($identities as $identity)
                             <tr>
-                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->id }}</td>
-                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->first_name }}
+                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->id }}</td>
+                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->first_name }}
                                     {{ $identity->last_name }}</td>
-                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->email }}</td>
-                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->gender }}</td>
-                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->blood_group }}</td>
-                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->dob }}</td>
-                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->created_at }}</td>
+                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->email }}</td>
+                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->contact }}</td>
+                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->gender }}</td>
+                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->blood_group }}</td>
+                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->dob }}</td>
+                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->created_at }}</td>
                                 @if ($identity->updated_at == $identity->created_at)
-                                    <td class="p-0 pb-3 w-50px text-center">Not updated</td>
+                                    <td class="p-2 pb-3 w-50px text-center">Not updated</td>
                                 @else
-                                    <td class="p-0 pb-3 w-50px text-center">{{ $identity->updated_at }}</td>
+                                    <td class="p-2 pb-3 w-50px text-center">{{ $identity->updated_at }}</td>
                                 @endif
-                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->created_by }}</td>
+                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->created_by }}</td>
                                 @if ($identity->updated_by == null)
-                                    <td class="p-0 pb-3 w-50px text-center">Not updated</td>
+                                    <td class="p-2 pb-3 w-50px text-center">Not updated</td>
                                 @else
-                                    <td class="p-0 pb-3 w-50px text-center">{{ $identity->updated_by }}</td>
+                                    <td class="p-2 pb-3 w-50px text-center">{{ $identity->updated_by }}</td>
                                 @endif
-                                <td class="p-0 pb-3 w-50px text-center">
+                                <td class="p-2 pb-3 w-50px text-center">
                                     <div class="d-flex justify-content-around">
                                         <a href="{{ route('profile.edit', $identity->id) }}"
                                             class="btn btn-light-primary font-weight-bold">
                                             View
                                         </a>
-                                        <a href="{{ route('profile.destroy', $identity->id) }}"
-                                            class="btn btn-light-danger font-weight-bold"
-                                            onclick="return confirm('Are you sure to delete this record?')">Delete</a>
+                                        <a href="javascript:void(0)" data-id="{{ $identity->id }}" class="btn btn-light-danger font-weight-bold delete-btn">Delete</a>
                                     </div>
                                 </td>
 
@@ -161,3 +161,34 @@
     </div>
 
 </x-base-layout>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.delete-btn').click(function() {
+            var identityId = $(this).data('id');
+            var $row = $(this).closest('tr');
+
+            if(confirm('Are you sure to delete this record?')) {
+                $.ajax({
+                    url: "{{ route('profile.destroy', '') }}/" + identityId,
+                    type: 'DELETE',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(response) {
+                        if(response.success) {
+                            $row.remove();
+                            alert('Record deleted successfully.');
+                        } else {
+                            alert('Failed to delete the record.');
+                        }
+                    },
+                    error: function(response) {
+                        alert('Failed to delete the record.');
+                    }
+                });
+            }
+        });
+    });
+</script>
