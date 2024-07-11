@@ -140,23 +140,36 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $role = Role::find($id);
         $request->validate([
-            'name' => 'required|unique:roles|max:50',
+            'name' => 'required|max:50|unique:roles,name,' . $role->id,
             'permissions' => 'required',
         ]);
 
-        $role = Role::find($id);
+        // Update role details
         $role->name = $request->name;
         $role->guard_name = 'web';
         $input = $request->except(['permissions']);
         $role->fill($input)->save();
+
+        // Update role permissions
         if ($request->permissions <> '') {
-            $role->permissions()->sync($request->permissions);
+            // Sync permissions in role_has_permissions table
+            DB::table('role_has_permissions')->where('role_id', $role->id)->delete();
+            $permissions = $request->permissions;
+            $rolePermissions = [];
+            foreach ($permissions as $permission) {
+                $rolePermissions[] = [
+                    'permission_id' => $permission,
+                    'role_id' => $role->id,
+                ];
+            }
+            DB::table('role_has_permissions')->insert($rolePermissions);
         }
 
-        // $identities = Role::all();
         return redirect()->route('roles.index')->with('success', 'Role updated successfully');
     }
+
 
 
     /**
