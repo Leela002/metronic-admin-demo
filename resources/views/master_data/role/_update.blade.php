@@ -15,7 +15,7 @@
         <div class="card-header cursor-pointer">
             <!--begin::Card title-->
             <div class="card-title m-0">
-                <h3 class="fw-bolder m-0">{{ __('Update User') }} - {{ $role->name }}</h3>
+                <h3 class="fw-bolder m-0">{{ __('Update Role') }} - {{ $role->name }}</h3>
             </div>
             <!--end::Card title-->
         </div>
