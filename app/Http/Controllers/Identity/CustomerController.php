@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
@@ -20,11 +21,20 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search', '');
+        if($search != ""){
+            $identities = Customer::where('first_name','LIKE',"%$search%")
+            ->orWhere('last_name','LIKE',"%$search%")
+            ->orWhere('email','LIKE',"%$search%")
+            ->orWhere('contact','LIKE',"%$search%")
+            ->get();
+        }else{
+            $identities = Customer::paginate(2);
+        }
         $info = auth()->user()->info;
-        $identities = Customer::all();
-        return view('pages.identity.index', compact('info', 'identities'));
+        return view('pages.identity.index', compact('info', 'identities', 'search'));
     }
 
     public function create()

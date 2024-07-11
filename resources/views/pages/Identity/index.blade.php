@@ -18,7 +18,7 @@
         }
 
         .min-w-175px {
-            min-width: 100px !important;
+            min-width: 140px !important;
         }
 
         table.dataTable>thead>tr>th:not(.sorting_disabled) {
@@ -52,14 +52,23 @@
             margin: -28px !important;
         }
 
-        /* Add border to td */
         table.dataTable th,
         table.dataTable td {
             border: 1px solid #EBEDF3;
         }
 
-        .table> :not(:last-child)> :last-child>* {
-            border-bottom-color: #EBEDF3;
+        .pagination .page-item .page-link {
+            color: #007bff;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #6c757d;
         }
     </style>
 
@@ -82,17 +91,20 @@
                 <h3 class="fw-bolder m-0">{{ __('Customer') }}</h3>
             </div>
             <!--end::Card title-->
-
-            <!--begin::Action-->
-            <a href="{{ route('profile.create') }}" class="btn btn-primary align-self-center"
-                style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Customer') }}</a>
-            <!--end::Action -->
         </div>
 
         <!--begin::Card-->
-        <div class="card m-5 p-4">
-            <div class="card-body ">
-
+        <div class="card m-5">
+            <div class="card-body">
+                <div class="row">
+                    <div class="d-flex align-items-center position-relative my-1 w-100">
+                        <input type="text" data-kt-fundcategories-table-filter="search"
+                            class="form-control form-control-solid w-250px ps-13" placeholder="Search"
+                            id="mySearchInput" />
+                        <a href="{{ route('profile.create') }}" class="btn btn-primary ms-auto"
+                            style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Customer') }}</a>
+                    </div>
+                </div>
             </div>
             <div class="table-responsive signing_fees">
                 <table class="table dataTable" id="data-table">
@@ -115,7 +127,7 @@
                     </thead>
                     <!-- end::Table head -->
                     <!-- begin::Table body -->
-                    <tbody >
+                    <tbody>
                         @foreach ($identities as $identity)
                             <tr>
                                 <td class="p-2 pb-3 w-50px text-center">{{ $identity->id }}</td>
@@ -138,16 +150,16 @@
                                 @else
                                     <td class="p-2 pb-3 w-50px text-center">{{ $identity->updated_by }}</td>
                                 @endif
-                                <td class="p-2 pb-3 w-50px text-center">
-                                    <div class="d-flex justify-content-around">
+                                <td class="p-2 pb-3 text-center">
+                                    <div class="d-flex justify-content-evenly gap-5">
                                         <a href="{{ route('profile.edit', $identity->id) }}"
                                             class="btn btn-light-primary font-weight-bold">
                                             View
                                         </a>
-                                        <a href="javascript:void(0)" data-id="{{ $identity->id }}" class="btn btn-light-danger font-weight-bold delete-btn">Delete</a>
+                                        <a href="javascript:void(0)" data-id="{{ $identity->id }}"
+                                            class="btn btn-light-danger font-weight-bold delete-btn">Delete</a>
                                     </div>
                                 </td>
-
                             </tr>
                         @endforeach
                     </tbody>
@@ -157,6 +169,11 @@
         </div>
         <!-- end::Card body -->
     </div>
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            {{ $identities->links('pagination::bootstrap-4') }}
+        </div>
+    </div>
     <!-- end::Card -->
     </div>
 
@@ -164,12 +181,14 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+    // Ajax for delete
     $(document).ready(function() {
         $('.delete-btn').click(function() {
             var identityId = $(this).data('id');
             var $row = $(this).closest('tr');
 
-            if(confirm('Are you sure to delete this record?')) {
+            if (confirm('Are you sure to delete this record?')) {
                 $.ajax({
                     url: "{{ route('profile.destroy', '') }}/" + identityId,
                     type: 'DELETE',
@@ -177,7 +196,7 @@
                         "_token": "{{ csrf_token() }}",
                     },
                     success: function(response) {
-                        if(response.success) {
+                        if (response.success) {
                             $row.remove();
                             alert('Record deleted successfully.');
                         } else {
@@ -190,5 +209,26 @@
                 });
             }
         });
+    });
+
+
+    // for search
+    document.getElementById('mySearchInput').addEventListener('keyup', function() {
+        var searchValue = this.value.toLowerCase();
+        var table = document.getElementById('data-table');
+        var rows = table.getElementsByTagName('tr');
+
+        for (var i = 1; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName('td');
+            var rowText = '';
+            for (var j = 0; j < cells.length; j++) {
+                rowText += cells[j].textContent.toLowerCase();
+            }
+            if (rowText.includes(searchValue)) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
     });
 </script>
