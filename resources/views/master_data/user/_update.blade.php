@@ -79,32 +79,7 @@
                                                 <span class="error">Please select user role</span>
                                             @enderror
                                         </div>
-                                        <!-- <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="py-2" for="email">Email*</label>
-                                                <input type="text" class="form-control" id="email" aria-describedby="email" placeholder="Enter email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="py-2" for="phone">Phone*</label>
-                                                <input type="text" class="form-control" id="name" aria-describedby="phone" placeholder="Enter phone">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="py-2" for="service">Service you need*</label>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>-None-</option>
-                                                <option value="1">PEO</option>
-                                                <option value="2">EOR</option>
-                                                <option value="3">Subsidiary Formation</option>
-                                                <option value="3">Guide Me</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="py-2" for="help">How can we help?*</label> 
-                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>    
-                                        </div> -->
+                                      
                                         <div class="col-md-12">
                                             <div class="float-end mt-3">
                                                 <!-- <button type="button" class="btn btn-sm btn-light me-3">Reset</button> -->

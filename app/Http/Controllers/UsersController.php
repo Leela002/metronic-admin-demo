@@ -10,11 +10,12 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+
 // use DB;
 
 class UsersController extends Controller
 {
-  
+
     // function __construct()
     // {
     //     $this->middleware('permission:users_list|user_create|user_edit|user_delete', ['only' => ['index','show']]);
@@ -29,23 +30,23 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {       
+    {
         $users = User::all();
-        return view('master_data.user.index', ['users' => $users]); 
-     
+        return view('master_data.user.index', ['users' => $users]);
+
     }
 
     // public function updateSelection()
     // {
     //     // Retrieve the currently authenticated user
     //     $user = Auth::user();
-    
+
     //     // Explode the dashboard setting data into an array and remove empty elements
     //     $storedCards = array_filter(explode(',', $user->dashboard_setting));
-        
+
     //     return view('card_dashboard.card_filter', compact('storedCards'));
     // }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -54,7 +55,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles = Role::select('id','name')->get();
+        $roles = Role::select('id', 'name')->get();
         return view('master_data.user._create', compact('roles'));
     }
 
@@ -66,7 +67,7 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         //return $request;      
         $request->validate([
             'first_name' => 'required',
@@ -75,10 +76,10 @@ class UsersController extends Controller
             'password' => 'required',
             'role_id' => 'required',
         ]);
-        
+
         $checkemail = User::where('email', $request->email)->get();
-        if(count($checkemail)>0){
-            return redirect()->back()->with('error', 'Email already exists'); 
+        if (count($checkemail) > 0) {
+            return redirect()->back()->with('error', 'Email already exists');
         }
 
         /*
@@ -91,13 +92,13 @@ class UsersController extends Controller
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
-        $user->password= Hash::make($request->password);
-        $user->role_id= $request->role_id;
+        $user->password = Hash::make($request->password);
+        $user->role_id = $request->role_id;
         $user->save();
 
         $user->assignRole($request->role_id);
 
-        return redirect('/users')->with('success', 'User added successfully');   
+        return redirect('/users')->with('success', 'User added successfully');
     }
 
     /**
@@ -146,7 +147,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $userData = User::find($id);
-        $roles = Role::select('id','name')->get();
+        $roles = Role::select('id', 'name')->get();
         return view('master_data.user._update', compact('userData', 'roles'));
     }
 
@@ -162,15 +163,15 @@ class UsersController extends Controller
     {
         //return $request;      
         $request->validate([
-          'first_name' => 'required',
-          'last_name' => 'required',
-          'email' => 'required',
-          'role_id' => 'required',        
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'role_id' => 'required',
         ]);
 
         $checkemail = User::where([['email', $request->email], ['id', '!=', $id]])->get();
-        if(count($checkemail)>0){
-            return redirect()->back()->with('danger', 'Email already exists'); 
+        if (count($checkemail) > 0) {
+            return redirect()->back()->with('danger', 'Email already exists');
         }
 
         /*
@@ -184,9 +185,9 @@ class UsersController extends Controller
         $user->last_name = $request->last_name;
         $user->email = $request->email;
         if ($request->password) {
-            $user->password= Hash::make($request->password);
+            $user->password = Hash::make($request->password);
         }
-        $user->role_id= $request->role_id;
+        $user->role_id = $request->role_id;
         $user->save();
 
         $user->assignRole($request->role_id);
@@ -203,8 +204,13 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $activity = User::find($id);
-        // Delete from db
-        $activity->delete();
+        $user = User::find($id);
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+        // Delete from database
+        $user->delete();
+        return redirect('/users')->with('success', 'User deleted successfully.');
     }
+
 }
