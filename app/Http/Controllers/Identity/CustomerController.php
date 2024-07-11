@@ -54,24 +54,20 @@ class CustomerController extends Controller
     }
 
     public function update(UpdateCustomerRequest $request, Customer $id): RedirectResponse
-    {
-        $requestData = [];
-        $requestData['first_name'] = $request->first_name;
-        $requestData['last_name'] = $request->last_name;
-        $requestData['contact'] = $request->contact;
-        $requestData['email'] = $request->email;
-        $requestData['gender'] = $request->gender;
-        $requestData['blood_group'] = $request->blood_group;
-        $requestData['dob'] = $request->dob;
-        $requestData['updated_by'] = Auth::user()->name;
+{
+    // Get all validated data from the request
+    $requestData = $request->validated();
 
-        $identity = Customer::select()->where('id', $id->id)->update($requestData);
+    // Add the 'updated_by' field
+    $requestData['updated_by'] = Auth::user()->name;
 
-        // dd($x ,$identity,$request->all());
+    // Update the customer record with the validated data
+    $id->update($requestData);
 
-        return redirect()->route('profile.index', ['identity' => $identity])
-            ->with('success', 'Customer updated successfully.');
-    }
+    return redirect()->route('profile.index')
+        ->with('success', 'Customer updated successfully.');
+}
+
 
     public function destroy($id)
 {

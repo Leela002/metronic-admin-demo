@@ -100,7 +100,7 @@
                     <thead>
                         <tr class="fs-7 fw-bold text-gray-400">
                             <th class="p-2 min-w-175px text-center">Id</th>
-                            <th class="p-2 min-w-175px text-center">Full&nbsp;Name</th>
+                            <th class="p-2 min-w-175px text-center">Name</th>
                             <th class="p-2 min-w-175px text-center">Email</th>
                             <th class="p-2 min-w-175px text-center">Mobile</th>
                             <th class="p-2 min-w-175px text-center">Gender</th>

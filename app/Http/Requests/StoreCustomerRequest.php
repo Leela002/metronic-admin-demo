@@ -25,8 +25,8 @@ class StoreCustomerRequest extends FormRequest
         return [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'contact' => 'required|string|unique:customer',
-            'email' => 'required|string|unique:customer',
+            'contact' => 'required|string|unique:customer|digits:10',
+            'email' => 'required|string|unique:customer|email',
             'gender' => 'required|string',
             'blood_group' => 'required|string',
             'dob' => 'required|date|before:today', // Assuming date format for date of birth
