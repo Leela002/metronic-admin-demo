@@ -76,12 +76,19 @@
                                     </div>
                                     <!--end::Input group-->
 
-                                    <div class="col-md-12">
-                                        <div class="float-end mt-3">
-                                            <!-- <button type="button" class="btn btn-sm btn-light me-3">Reset</button> -->
-                                            <button type="submit" class="btn btn-sm btn-primary me-3">Submit</button>
-                                        </div>
-                                    </div>
+                                   <!--begin::Action buttons-->
+                            <div class="d-flex justify-content-end align-items-center mt-12">
+                                <!--begin::Button-->
+                                <a href="{{ route('roles.index') }}" class="btn btn-secondary me-5 px-4 m-2">Cancel</a>
+
+                                <!--end::Button-->
+                                <!--begin::Button-->
+                                <button type="submit" class="btn btn-primary" id="kt_client_submit">
+                                    <span class="indicator-label">submit</span>
+                                </button>
+                                <!--end::Button-->
+                            </div>
+                            <!--begin::Action buttons-->
                             </div>
                             </form>
                         </div>

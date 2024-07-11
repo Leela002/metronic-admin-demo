@@ -117,4 +117,4 @@ Route::get('/auth/redirect/{provider}', [SocialiteLoginController::class, 'redir
 
 require __DIR__ . '/auth.php';
 
-   //profile
+//profile

@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\DB;
 class UsersController extends Controller
 {
 
-    // function __construct()
-    // {
-    //     $this->middleware('permission:users_list|user_create|user_edit|user_delete', ['only' => ['index','show']]);
-    //     $this->middleware('permission:user_create', ['only' => ['create','store']]);
-    //     $this->middleware('permission:user_edit', ['only' => ['edit','update']]);
-    //     $this->middleware('permission:user_delete', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:users_list|user_create|user_edit|user_delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:user_create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user_edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user_delete', ['only' => ['destroy']]);
+    }
 
     /**
      * Display a listing of the resource.
