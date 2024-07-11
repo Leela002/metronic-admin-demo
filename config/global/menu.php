@@ -199,26 +199,23 @@ return array(
         array(
             'title' => 'Dashboard',
             'path' => '',
-            'icon' => theme()->getSvgIcon("demo1/media/icons/duotune/art/art002.svg", "svg-icon-2"),
+            'icon' => '<i class="bi bi-grid-1x2-fill" style="font-weight: 600;font-size: 18px;"></i>',
         ),
+
+
 
         //// Customer Profile
         array(
             'title' => 'Customer',
             'path' => 'identity/profile',
-            'icon' => array(
-                'svg' => theme()->getSvgIcon("demo1/media/icons/duotune/communication/com006.svg", "svg-icon-2"),
-                'font' => '<i class="bi bi-person fs-2"></i>',
-            ),
+            'icon' => '<i class="bi bi-person-circle" style="font-weight: 600;font-size: 18px;"></i>',
             'classes' => array('item' => 'menu-accordion'),
         ),
         ////Master
         array(
             'title' => 'Master',
-            'icon' => array(
-                'svg' => theme()->getSvgIcon("demo1/media/icons/duotune/communication/com006.svg", "svg-icon-2"),
-                'font' => '<i class="bi bi-person fs-2"></i>',
-            ),
+            'icon' => '<i class="bi bi-nut-fill" style="font-weight: 600;font-size: 18px;"></i>',
+
             'classes' => array('item' => 'menu-accordion'),
             'attributes' => array(
                 "data-kt-menu-trigger" => "click",
@@ -238,10 +235,7 @@ return array(
         ////Access Control
         array(
             'title' => 'Access Control',
-            'icon' => array(
-                'svg' => theme()->getSvgIcon("demo1/media/icons/duotune/communication/com006.svg", "svg-icon-2"),
-                'font' => '<i class="bi bi-person fs-2"></i>',
-            ),
+            'icon' => '<i class="bi bi-stack" style="font-weight: 600;font-size: 18px;"></i>',
             'classes' => array('item' => 'menu-accordion'),
             'attributes' => array(
                 "data-kt-menu-trigger" => "click",
@@ -390,11 +384,11 @@ return array(
     // Horizontal menu
     'horizontal' => array(
         // Dashboard
-        array(
-            'title' => 'Dashboard',
-            'path' => '',
-            'classes' => array('item' => 'me-lg-1'),
-        ),
+        // array(
+        //     'title' => 'Dashboard',
+        //     'path' => '',
+        //     'classes' => array('item' => 'me-lg-1'),
+        // ),
 
         // Resources
         // array(
@@ -425,26 +419,26 @@ return array(
         // ),
 
         // Account
-        array(
-            'title' => 'Employee Profile',
-            'classes' => array('item' => 'menu-lg-down-accordion me-lg-1', 'arrow' => 'd-lg-none'),
-            'attributes' => array(
-                'data-kt-menu-trigger' => "click",
-                'data-kt-menu-placement' => "bottom-start",
-            ),
-            'sub' => array(
-                'class' => 'menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px',
-                'items' => array(
+        // array(
+        //     'title' => 'Employee Profile',
+        //     'classes' => array('item' => 'menu-lg-down-accordion me-lg-1', 'arrow' => 'd-lg-none'),
+        //     'attributes' => array(
+        //         'data-kt-menu-trigger' => "click",
+        //         'data-kt-menu-placement' => "bottom-start",
+        //     ),
+        //     'sub' => array(
+        //         'class' => 'menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px',
+        //         'items' => array(
 
-                    array(
-                        'title' => 'Profile Details',
-                        'path' => 'identity/profile',
-                        'bullet' => '<span class="bullet bullet-dot"></span>',
-                    ),
+        //             array(
+        //                 'title' => 'Profile Details',
+        //                 'path' => 'identity/profile',
+        //                 'bullet' => '<span class="bullet bullet-dot"></span>',
+        //             ),
 
-                ),
-            ),
-        ),
+        //         ),
+        //     ),
+        // ),
 
         // System
         // array(
