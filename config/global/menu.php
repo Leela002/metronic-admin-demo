@@ -229,6 +229,12 @@ return array(
                         'path' => 'parameters',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
+
+                    array(
+                        'title' => 'Category Master',
+                        'path' => 'category',
+                        'bullet' => '<span class="bullet bullet-dot"></span>',
+                    ),
                 ),
             ),
         ),

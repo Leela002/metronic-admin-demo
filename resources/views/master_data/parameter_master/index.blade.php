@@ -78,21 +78,19 @@
                 <h3 class="fw-bolder m-0">{{ __('Parameter Master') }}</h3>
             </div>
 
-            
-
-                  <!--begin::Action-->
-
+            <div class="d-flex justify-content-end">
+                <a href="{{ theme()->getPageUrl('create_parameter') }}" class="btn btn-primary align-self-center" style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Parameter') }}</a>
+            </div>
         </div>
 
         <!--begin::Card-->
         <div class="card m-5 p-4">
 
-                <div class="row mb-5 mb-xl-10">
-                    <div class="d-flex align-items-center position-relative my-1 w-100">
-                        <input type="text" data-kt-fundcategories-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search" id="mySearchInput" />
-                        <a href="{{ theme()->getPageUrl('create_parameter') }}" class="btn btn-primary ms-auto" style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Parameter') }}</a>
-                    </div>
+            <div class="row mb-xl-3">
+                <div class="d-flex align-items-center position-relative my-1 w-100">
+                    <input type="text" class="form-control form-control-solid w-200px ps-13" placeholder="Search" id="mySearchInput" />
                 </div>
+            </div>
 
             <div class="table-responsive signing_fees">
                 <table class="table dataTable " id="data-table">
@@ -128,7 +126,7 @@
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->updated_at}}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$identity->created_by}}</td>
                                             @if ($identity->updated_by == null)
-                                                <td class="p-0 pb-3 w-50px text-center">Not updated</td>
+                                                <td class="p-0 pb-3 w-50px text-center">-</td>
                                             @else
                                                 <td class="p-0 pb-3 w-50px text-center">{{ $identity->updated_by }}</td>
                                             @endif
