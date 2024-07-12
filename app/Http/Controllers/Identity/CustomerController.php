@@ -24,6 +24,9 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search', '');
+        $perPage = $request->input('per_page', 5);
+
+
         if($search != ""){
             $identities = Customer::where('first_name','LIKE',"%$search%")
             ->orWhere('last_name','LIKE',"%$search%")
@@ -31,10 +34,10 @@ class CustomerController extends Controller
             ->orWhere('contact','LIKE',"%$search%")
             ->get();
         }else{
-            $identities = Customer::paginate(2);
+            $identities = Customer::paginate($perPage);
         }
         $info = auth()->user()->info;
-        return view('pages.identity.index', compact('info', 'identities', 'search'));
+        return view('pages.identity.index', compact('info', 'identities', 'search', 'perPage'));
     }
 
     public function create()
