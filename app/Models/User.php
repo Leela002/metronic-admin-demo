@@ -23,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $table = 'users';
     protected $fillable = [
         'name',
-         'email',
+        'email',
         'api_token',
         'password',
     ];
@@ -78,7 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return asset($this->info->avatar_url);
         }
 
-        return asset(theme()->getMediaUrlPath().'avatars/blank.png');
+        return asset(theme()->getMediaUrlPath() . 'avatars/blank.png');
     }
 
     /**
@@ -89,5 +89,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function info()
     {
         return $this->hasOne(UserInfo::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

@@ -118,8 +118,7 @@
                                 <td class="p-0 pb-3 w-50px text-center">{{$user->first_name }}</td>
                                 <td class="p-0 pb-3 w-50px text-center">{{$user->last_name }}</td>
                                 <td class="p-0 pb-3 w-50px text-center">{{$user->email}}</td>
-                                <td class="p-0 pb-3 w-50px text-center">{{$user->role_id}}</td>
-                                <td class="p-0 pb-3 w-50px text-center">{{$user->created_at}}</td>
+                                <td class="p-0 pb-3 w-50px text-center">{{$user->role->name}}</td>                                <td class="p-0 pb-3 w-50px text-center">{{$user->created_at}}</td>
                                 <td class="p-0 pb-3 w-50px text-center">
                                     <div class="d-flex justify-content-around">
                                         <a href="{{ route('edit_user', $user->id) }}"

@@ -28,23 +28,23 @@ class UserDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->rawColumns(['id','action'])
+            ->rawColumns(['id', 'action'])
             ->editColumn('id', function (User $model) {
                 return $model->id;
-            }) 
+            })
 
             ->addColumn('role_id', function (User $model) {
-                return $model->roleName->name;
-            })          
-           
+                return $model->role->name;
+            })
+
             ->editColumn('created_at', function (User $model) {
                 return $model->created_at->format('d M, Y H:i:s');
             })
 
-             ->editColumn('updated_at', function (User $model) {
+            ->editColumn('updated_at', function (User $model) {
                 return $model->updated_at->format('d M, Y H:i:s');
             })
-            
+
 
             ->addColumn('action', function (User $model) {
                 return view('master_data.user._action-menu', compact('model'));
@@ -70,19 +70,19 @@ class UserDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('user-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(0)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('user-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(0)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('create'),
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -93,11 +93,11 @@ class UserDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title('Id')->addClass('text-center')->addClass('custom_padding')->addClass('cus_table_bg'), 
+            Column::make('id')->title('Id')->addClass('text-center')->addClass('custom_padding')->addClass('cus_table_bg'),
             Column::make('first_name')->title(__('First Name'))->addClass('text-center')->addClass('custom_padding'),
-            Column::make('last_name')->title(__('Last Name'))->addClass('text-center')->addClass('custom_padding'), 
-            Column::make('email')->title(__('Email'))->addClass('text-center')->addClass('custom_padding'),   
-            Column::make('role_id')->title(__('Role'))->addClass('text-center')->addClass('custom_padding'),            
+            Column::make('last_name')->title(__('Last Name'))->addClass('text-center')->addClass('custom_padding'),
+            Column::make('email')->title(__('Email'))->addClass('text-center')->addClass('custom_padding'),
+            Column::make('role_id')->title(__('Role'))->addClass('text-center')->addClass('custom_padding'),
             Column::make('created_at')->title(__('Created At'))->addClass('custom_padding')->addClass('text-center'),
             //Column::make('updated_at')->title(__('Updated At'))->addClass('custom_padding')->addClass('text-center'),
             Column::computed('action')
