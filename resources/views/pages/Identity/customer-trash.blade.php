@@ -92,17 +92,10 @@
         @endif
         <div class="heading-card">
             <!--begin::Card title-->
-            <div class="card-title m-0 d-flex justify-content-between">
-                <div>
-                    <h3 class="fw-bolder m-0">{{ __('Customer') }}</h3>
-                </div>
-
-                <div>
-                    <a href="{{ route('profile.create') }}" class="btn btn-primary ms-auto"
-                        style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Customer') }}</a>
-                    <a href="{{ route('profile.trash') }}" class="btn btn-primary ms-auto"
-                        style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Deleated Customers') }}</a>
-                </div>
+            <div class="card-title m-0 d-flex justify-between">
+                <h3 class="fw-bolder m-0 text-danger">{{ __('Deleted Customers') }}</h3>
+                <a href="{{ route('profile.index') }}" class="btn btn-primary ms-auto"
+                    style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Go to Customers') }}</a>
             </div>
             <!--end::Card title-->
         </div>
@@ -165,10 +158,14 @@
                                 @endif
                                 <td class="p-2 pb-3 text-center">
                                     <div class="d-flex justify-content-evenly gap-5">
-                                        <a href="{{ route('profile.edit', $identity->id) }}"
-                                            class="btn btn-light-primary font-weight-bold">
-                                            View
-                                        </a>
+                                        <form method="POST" action="{{ route('profile.restore', $identity->id) }}" class="restore-form">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-light-primary font-weight-bold">
+                                                Restore
+                                            </button>
+                                        </form>
+
                                         <a href="javascript:void(0)" data-id="{{ $identity->id }}"
                                             class="btn btn-light-danger font-weight-bold delete-btn">Delete</a>
                                     </div>
@@ -205,14 +202,38 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $('.restore-form').submit(function(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+            var $form = $(this);
+            var $row = $form.closest('tr');
+
+            $.ajax({
+                url: $form.attr('action'),
+                type: 'PATCH',
+                data: $form.serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        $row.remove();
+                        alert('Record restored successfully.');
+                    } else {
+                        alert('Failed to restore the record.');
+                    }
+                },
+                error: function(response) {
+                    alert('Failed to restore the record.');
+                }
+            });
+        });
+</script>
+<script>
     $(document).ready(function() {
         $('.delete-btn').click(function() {
             var identityId = $(this).data('id');
             var $row = $(this).closest('tr');
 
-            if (confirm('Are you sure to delete this record?')) {
+            if (confirm('Are you sure to delete this record permanently?')) {
                 $.ajax({
-                    url: "{{ route('profile.destroy', '') }}/" + identityId,
+                    url: "{{ route('profile.forceDelete', '') }}/" + identityId,
                     type: 'DELETE',
                     data: {
                         "_token": "{{ csrf_token() }}",
@@ -220,13 +241,13 @@
                     success: function(response) {
                         if (response.success) {
                             $row.remove();
-                            alert('Record deleted successfully.');
+                            alert('Record deleted permanently.');
                         } else {
-                            alert('Failed to delete the record.');
+                            alert('Failed to delete the record permanently.');
                         }
                     },
                     error: function(response) {
-                        alert('Failed to delete the record.');
+                        alert('Failed to delete the record permanently.');
                     }
                 });
             }

@@ -24,7 +24,7 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search', '');
-        $perPage = $request->input('per_page', 5);
+       $perPage = $request->input('per_page', 5);
 
 
         if($search != ""){
@@ -93,4 +93,53 @@ class CustomerController extends Controller
         return response()->json(['success' => false]);
     }
 }
+
+
+    public function restore($id)
+{
+    $identity = Customer::withTrashed()->find($id);
+
+    if($identity) {
+        $identity->restore();
+        return response()->json(['success' => true]);
+    } else {
+        return response()->json(['success' => false]);
+    }
 }
+
+
+
+public function trash(Request $request)
+{
+    $perPage = $request->input('per_page', 5);
+    $search = $request->input('search', '');
+
+
+    if($search != ""){
+        $identities = Customer::where('first_name','LIKE',"%$search%")
+        ->orWhere('last_name','LIKE',"%$search%")
+        ->orWhere('email','LIKE',"%$search%")
+        ->orWhere('contact','LIKE',"%$search%")
+        ->get();
+    }else{
+        $identities = Customer::onlyTrashed()->paginate($perPage);
+    }
+    $info = auth()->user()->info;
+    return view('pages.identity.customer-trash', compact('identities', 'perPage', 'search', 'info'));
+}
+
+public function forceDelete($id)
+{
+    try {
+        $customer = Customer::onlyTrashed()->findOrFail($id);
+        $customer->forceDelete();
+
+        return response()->json(['success' => true, 'message' => 'Record deleted permanently.']);
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => 'Failed to delete the record permanently.']);
+    }
+}
+
+}
+
+

@@ -65,11 +65,14 @@ Route::middleware('auth')->group(function () {
     // //profile pages
     Route::prefix('identity')->group(function () {
         Route::get('profile', [CustomerController::class, 'index'])->name('profile.index');
+        Route::get('profile/trash', [CustomerController::class, 'trash'])->name('profile.trash');
         Route::get('profile/create', [CustomerController::class, 'create'])->name('profile.create');
         Route::post('profile/store', [CustomerController::class, 'store'])->name('profile.store');
         Route::get('profile/edit/{id}', [CustomerController::class, 'edit'])->name('profile.edit');
         Route::put('profile/update/{id}', [CustomerController::class, 'update'])->name('profile.update'); // Change to PUT
         Route::delete('profile/destroy/{id}', [CustomerController::class, 'destroy'])->name('profile.destroy');
+        Route::delete('/profile/forceDelete/{id}', [CustomerController::class, 'forceDelete'])->name('profile.forceDelete');
+        Route::patch('profile/restore/{id}', [CustomerController::class, 'restore'])->name('profile.restore');
     });
     // //roles
     Route::get('roles', [RolesController::class, 'index'])->name('roles.index');
