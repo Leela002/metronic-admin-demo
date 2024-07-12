@@ -170,8 +170,18 @@
         <!-- end::Card body -->
     </div>
     <div class="row">
+        <div class="col d-flex justify-content-start">
+            <form id="rowsPerPageForm" action="{{ route('profile.index') }}" method="GET">
+                <select name="per_page" id="per_page" class="form-select" onchange="document.getElementById('rowsPerPageForm').submit()">
+                    <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
+                    <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                    <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                    <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
+                </select>
+            </form>
+        </div>
         <div class="col d-flex justify-content-end">
-            {{ $identities->links('pagination::bootstrap-4') }}
+            {{ $identities->appends(['per_page' => $perPage, 'search' => $search])->links('pagination::bootstrap-4') }}
         </div>
     </div>
     <!-- end::Card -->
@@ -181,8 +191,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
-    // Ajax for delete
     $(document).ready(function() {
         $('.delete-btn').click(function() {
             var identityId = $(this).data('id');
@@ -211,8 +219,6 @@
         });
     });
 
-
-    // for search
     document.getElementById('mySearchInput').addEventListener('keyup', function() {
         var searchValue = this.value.toLowerCase();
         var table = document.getElementById('data-table');
