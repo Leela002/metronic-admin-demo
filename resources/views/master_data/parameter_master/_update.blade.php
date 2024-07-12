@@ -22,7 +22,7 @@
                     <div class="col-md-12">
                         <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
                             <div class="card-body p-9">
-                                <form name="create_employee" action="{{ url('update_parameter', $identity->id) }}" method="POST">
+                                <form name="create_employee" action="{{ route('update_parameter', $identity->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="py-2">

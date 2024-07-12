@@ -84,15 +84,24 @@ class ParameterMasterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateParameterMasterRequest $request, ParameterMaster $parameter_master): RedirectResponse
-    {
-        $requestData = $request->all();
-        $requestData['updated_by'] = Auth::user()->name;
-        $parameter_master->update($requestData);
+    public function update(UpdateParameterMasterRequest $request, $id): RedirectResponse
+{
+    $requestData = $request->all();
+    $requestData['updated_by'] = Auth::user()->name;
+
+    // Find the record by its ID
+    $parameterMaster = ParameterMaster::find($id);
+    if ($parameterMaster) {
+        // Update the record
+        $parameterMaster->update($requestData);
 
         return redirect()->route('parameter.index')
             ->with('success', 'Parameter updated successfully.');
     }
+
+    return redirect()->route('parameter.index')
+        ->with('error', 'Parameter not found.');
+}
     /**
      * Remove the specified resource from storage.
      */
