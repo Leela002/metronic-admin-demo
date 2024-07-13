@@ -108,8 +108,8 @@
         </div>
 
         <!--begin::Card-->
-        <div class="card m-5 ">
-            <div class="card-body">
+        <div class="card m-5 p-4">
+            <div class="row mb-xl-3">
                 <div class="row">
                     <div class="d-flex align-items-center position-relative my-1 w-100">
                         <input type="text" data-kt-fundcategories-table-filter="search"
