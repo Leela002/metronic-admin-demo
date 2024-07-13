@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Exports\CustomersExport;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
@@ -140,6 +141,10 @@ public function forceDelete($id)
     }
 }
 
+public function exportData(Request $request)
+    {
+        $export = new CustomersExport();
+        return $export->exportData($request);
+    }
+
 }
-
-

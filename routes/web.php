@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('profile/destroy/{id}', [CustomerController::class, 'destroy'])->name('profile.destroy');
         Route::delete('/profile/forceDelete/{id}', [CustomerController::class, 'forceDelete'])->name('profile.forceDelete');
         Route::patch('profile/restore/{id}', [CustomerController::class, 'restore'])->name('profile.restore');
+        Route::get('profile/export', [CustomerController::class, 'exportData'])->name('profile.export');
     });
     // //roles
     Route::get('roles', [RolesController::class, 'index'])->name('roles.index');

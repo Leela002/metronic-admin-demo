@@ -18,13 +18,13 @@
         }
 
         .min-w-175px {
-            min-width: 140px !important;
+            min-width: 115px !important;
         }
 
         table.dataTable>thead>tr>th:not(.sorting_disabled) {
             padding-right: 0;
             padding-left: 0;
-            color: gray;
+            color: #1d0557;
             /* Text color for th */
             padding: 1rem 2rem;
             /* Padding for th */
@@ -102,6 +102,9 @@
                         style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Customer') }}</a>
                     <a href="{{ route('profile.trash') }}" class="btn btn-primary ms-auto"
                         style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Deleated Customers') }}</a>
+                        <a href="{{ route('profile.export') }}" id="exportButton" class="btn btn-primary">
+                            Export
+                        </a>
                 </div>
             </div>
             <!--end::Card title-->
@@ -110,32 +113,27 @@
         <!--begin::Card-->
         <div class="card m-5 p-4">
             <div class="row mb-xl-3">
-                <div class="row">
-                    <div class="d-flex align-items-center position-relative my-1 w-100">
-                        <input type="text" data-kt-fundcategories-table-filter="search"
-                            class="form-control form-control-solid w-250px ps-13" placeholder="Search"
-                            id="mySearchInput" />
-
-                    </div>
+                <div class="d-flex align-items-center position-relative my-1 w-100">
+                    <input type="text" class="form-control form-control-solid w-200px ps-13" placeholder="Search" id="mySearchInput" />
                 </div>
             </div>
             <div class="table-responsive signing_fees">
-                <table class="table dataTable" id="data-table">
+                <table class="table dataTable " id="data-table">
                     <!-- begin::Table head -->
                     <thead>
                         <tr class="fs-7 fw-bold text-gray-400">
-                            <th class="p-2 min-w-175px text-center">Id</th>
-                            <th class="p-2 min-w-175px text-center">Name</th>
-                            <th class="p-2 min-w-175px text-center">Email</th>
-                            <th class="p-2 min-w-175px text-center">Mobile</th>
-                            <th class="p-2 min-w-175px text-center">Gender</th>
-                            <th class="p-2 min-w-175px text-center">Blood&nbsp;Group</th>
-                            <th class="p-2 min-w-175px text-center">DOB</th>
-                            <th class="p-2 min-w-175px text-center">Created at</th>
-                            <th class="p-2 min-w-175px text-center">Updated at</th>
-                            <th class="p-2 min-w-175px text-center">Created by</th>
-                            <th class="p-2 min-w-175px text-center">Updated by</th>
-                            <th class="p-2 min-w-175px text-center">Action</th>
+                            <th class="min-w-175px text-center">Id</th>
+                            <th class="min-w-175px text-center">Name</th>
+                            <th class="min-w-175px text-center">Email</th>
+                            <th class="min-w-175px text-center">Mobile</th>
+                            <th class="min-w-175px text-center">Gender</th>
+                            <th class="min-w-175px text-center">Blood&nbsp;Group</th>
+                            <th class="min-w-175px text-center">DOB</th>
+                            <th class="min-w-175px text-center">Created at</th>
+                            <th class="min-w-175px text-center">Updated at</th>
+                            <th class="min-w-175px text-center">Created by</th>
+                            <th class="min-w-175px text-center">Updated by</th>
+                            <th class="min-w-175px text-center">Action</th>
                         </tr>
                     </thead>
                     <!-- end::Table head -->
@@ -143,27 +141,27 @@
                     <tbody>
                         @foreach ($identities as $identity)
                             <tr>
-                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->id }}</td>
-                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->first_name }}
+                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->id }}</td>
+                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->first_name }}
                                     {{ $identity->last_name }}</td>
-                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->email }}</td>
-                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->contact }}</td>
-                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->gender }}</td>
-                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->blood_group }}</td>
-                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->dob }}</td>
-                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->created_at }}</td>
+                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->email }}</td>
+                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->contact }}</td>
+                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->gender }}</td>
+                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->blood_group }}</td>
+                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->dob }}</td>
+                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->created_at }}</td>
                                 @if ($identity->updated_at == $identity->created_at)
-                                    <td class="p-2 pb-3 w-50px text-center">-</td>
+                                    <td class="p-0 pb-3 w-50px text-center">-</td>
                                 @else
-                                    <td class="p-2 pb-3 w-50px text-center">{{ $identity->updated_at }}</td>
+                                    <td class="p-0 pb-3 w-50px text-center">{{ $identity->updated_at }}</td>
                                 @endif
-                                <td class="p-2 pb-3 w-50px text-center">{{ $identity->created_by }}</td>
+                                <td class="p-0 pb-3 w-50px text-center">{{ $identity->created_by }}</td>
                                 @if ($identity->updated_by == null)
-                                    <td class="p-2 pb-3 w-50px text-center">-</td>
+                                    <td class="p-0 pb-3 w-50px text-center">-</td>
                                 @else
-                                    <td class="p-2 pb-3 w-50px text-center">{{ $identity->updated_by }}</td>
+                                    <td class="p-0 pb-3 w-50px text-center">{{ $identity->updated_by }}</td>
                                 @endif
-                                <td class="p-2 pb-3 text-center">
+                                <td class="p-0 pb-3 text-center">
                                     <div class="d-flex justify-content-evenly gap-5">
                                         <a href="{{ route('profile.edit', $identity->id) }}"
                                             class="btn btn-light-primary font-weight-bold">
@@ -250,5 +248,65 @@
                 rows[i].style.display = 'none';
             }
         }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#exportButton').click(function (e) {
+            e.preventDefault(); // Prevent default link behavior
+
+            // Make AJAX call to fetch data
+            $.ajax({
+                url: '{{ route("profile.export") }}',
+                method: 'GET',
+                success: function (response) {
+                    // Check for success response
+                    if (response.data) {
+                        // Spread data according to column width
+                        const colWidth = {};
+                        response.data.forEach((row) => {
+                            Object.keys(row).forEach((key) => {
+                                const headerLength = key.toString().length;
+                                const cellData = row[key];
+                                if (cellData !== null && cellData !== undefined) {
+                                    const cellLength = cellData.toString().length;
+                                    const maxColumnWidth = Math.max(headerLength, cellLength);
+                                    const currentWidth = colWidth[key] || 0;
+                                    if (maxColumnWidth > currentWidth) {
+                                        colWidth[key] = maxColumnWidth;
+                                    }
+                                } else {
+                                    const currentWidth = colWidth[key] || 0;
+                                    if (headerLength > currentWidth) {
+                                        colWidth[key] = headerLength;
+                                    }
+                                }
+                            });
+                        });
+
+                        // Convert data to xlsx
+                        var wb = XLSX.utils.book_new();
+                        var ws = XLSX.utils.json_to_sheet(response.data);
+
+                        // Set column widths
+                        ws['!cols'] = [];
+                        Object.keys(colWidth).forEach((key) => {
+                            ws['!cols'].push({ wch: colWidth[key] });
+                        });
+
+                        XLSX.utils.book_append_sheet(wb, ws, "Clients");
+
+                        // Save the file
+                        XLSX.writeFile(wb, 'clients.xlsx');
+                    } else {
+                        alert('Failed to fetch data.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert('Error occurred while fetching data.');
+                }
+            });
+        });
     });
 </script>
