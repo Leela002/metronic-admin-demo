@@ -94,6 +94,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('user/destroy/{id}', [UsersController::class, 'destroy'])->name('user.destroy');
     Route::get('user/view/{id}', [UsersController::class, 'view'])->name('user.view');
 
+    ////setting 
+    Route::prefix('setting')->group(function () {
+        Route::get('social_media', [SettingController::class, 'index'])->name('social_media.index');
+        Route::get('social_media/create', [SettingController::class, 'create'])->name('social_media.create');
+        Route::post('social_media/store', [SettingController::class, 'store'])->name('social_media.store');
+        Route::get('social_media/edit/{id}', [SettingController::class, 'edit'])->name('social_media.edit');
+        Route::post('social_media/update', [SettingController::class, 'update'])->name('social_media.update'); // Change to PUT
+        Route::delete('social_media/destroy/{id}', [SettingController::class, 'destroy'])->name('social_media.destroy');
+
+    });
+
     //Parameter Master
     Route::resource('parameters', ParameterMasterController::class)->only(['index']);
 

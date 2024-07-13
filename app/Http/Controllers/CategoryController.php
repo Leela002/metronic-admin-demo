@@ -85,20 +85,4 @@ class CategoryController extends Controller
             return response()->json(['success' => false]);
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    // public function destroy(Parameter $parameter)
-    // {
-    //     if ($parameter->delete()) {
-    //         // Record was successfully deleted
-    //         return redirect()->route('setting.parameters.index')
-    //             ->with('success', 'Parameter deleted successfully.');
-    //     } else {
-    //         // Record deletion failed
-    //         return redirect()->route('setting.parameters.index')
-    //             ->with('error', 'Failed to delete the parameter.');
-    //     }
-    // }
 }
