@@ -231,8 +231,8 @@ return array(
                     ),
 
                     array(
-                        'title' => 'Category Master',
-                        'path' => 'category',
+                        'title' => 'Category',
+                        'path' => 'categories',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
                 ),

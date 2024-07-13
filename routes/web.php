@@ -3,6 +3,7 @@
 use App\Http\Controllers\Account\SettingsController;
 use App\Http\Controllers\ParameterMasterController;
 use App\Http\Controllers\Auth\SocialiteLoginController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Documentation\LayoutBuilderController;
 use App\Http\Controllers\Documentation\ReferencesController;
 use App\Http\Controllers\Logs\AuditLogsController;
@@ -102,6 +103,16 @@ Route::middleware('auth')->group(function () {
     Route::get('edit_parameter/{id}', [ParameterMasterController::class, 'edit'])->name('edit_parameter');
     Route::put('update_parameter/{id}', [ParameterMasterController::class, 'update'])->name('update_parameter');
     Route::get('paramter/view/{id}', [ParameterMasterController::class, 'view'])->name('parameter.view');
+
+    //Category
+    Route::resource('categories', CategoryController::class)->only(['index']);
+
+    Route::get('category', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('create_category', [CategoryController::class, 'create'])->name('create_category');
+    Route::post('add_category', [CategoryController::class, 'store'])->name('add_category');
+    Route::get('edit_category/{id}', [CategoryController::class, 'edit'])->name('edit_category');
+    Route::put('update_category/{id}', [CategoryController::class, 'update'])->name('update_category');
+    Route::delete('category/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
     // Logs pages
     Route::prefix('log')->name('log.')->group(function () {
