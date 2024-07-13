@@ -202,8 +202,6 @@ return array(
             'icon' => '<i class="bi bi-grid-1x2-fill" style="font-weight: 600;font-size: 18px;"></i>',
         ),
 
-
-
         //// Customer Profile
         array(
             'title' => 'Customer',
@@ -211,6 +209,7 @@ return array(
             'icon' => '<i class="bi bi-person-circle" style="font-weight: 600;font-size: 18px;"></i>',
             'classes' => array('item' => 'menu-accordion'),
         ),
+
         ////Master
         array(
             'title' => 'Master',
@@ -231,13 +230,14 @@ return array(
                     ),
 
                     array(
-                        'title' => 'Category Master',
-                        'path' => 'category',
+                        'title' => 'Category',
+                        'path' => 'categories',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
                 ),
             ),
         ),
+
         ////Access Control
         array(
             'title' => 'Access Control',
@@ -258,6 +258,29 @@ return array(
                     array(
                         'title' => 'Users',
                         'path' => 'users',
+                        'bullet' => '<span class="bullet bullet-dot"></span>',
+                    ),
+
+                ),
+            ),
+        ),
+
+        ////Setting
+        array(
+            'title' => 'Setting',
+            'icon' => '<i class="bi bi-gear-fill" style="font-weight: 600;font-size: 18px;"></i>',
+
+            'classes' => array('item' => 'menu-accordion'),
+            'attributes' => array(
+                "data-kt-menu-trigger" => "click",
+            ),
+            'sub' => array(
+                'class' => 'menu-sub-accordion menu-active-bg',
+                'items' => array(
+
+                    array(
+                        'title' => 'Social Media',
+                        'path' => 'setting/social_media',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
 

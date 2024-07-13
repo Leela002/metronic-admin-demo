@@ -3,6 +3,7 @@
 use App\Http\Controllers\Account\SettingsController;
 use App\Http\Controllers\ParameterMasterController;
 use App\Http\Controllers\Auth\SocialiteLoginController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Documentation\LayoutBuilderController;
 use App\Http\Controllers\Documentation\ReferencesController;
 use App\Http\Controllers\Logs\AuditLogsController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Logs\SystemLogsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Identity\CustomerController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -94,6 +96,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('user/destroy/{id}', [UsersController::class, 'destroy'])->name('user.destroy');
     Route::get('user/view/{id}', [UsersController::class, 'view'])->name('user.view');
 
+    ////setting 
+    Route::prefix('setting')->group(function () {
+        Route::get('social_media', [SettingController::class, 'index'])->name('social_media.index');
+        Route::get('social_media/create', [SettingController::class, 'create'])->name('social_media.create');
+        Route::post('social_media/store', [SettingController::class, 'store'])->name('social_media.store');
+        Route::get('social_media/edit/{id}', [SettingController::class, 'edit'])->name('social_media.edit');
+        Route::post('social_media/update', [SettingController::class, 'update'])->name('social_media.update'); // Change to PUT
+        Route::delete('social_media/destroy/{id}', [SettingController::class, 'destroy'])->name('social_media.destroy');
+
+    });
+
     //Parameter Master
     Route::resource('parameters', ParameterMasterController::class)->only(['index']);
 
@@ -103,6 +116,16 @@ Route::middleware('auth')->group(function () {
     Route::get('edit_parameter/{id}', [ParameterMasterController::class, 'edit'])->name('edit_parameter');
     Route::put('update_parameter/{id}', [ParameterMasterController::class, 'update'])->name('update_parameter');
     Route::get('paramter/view/{id}', [ParameterMasterController::class, 'view'])->name('parameter.view');
+
+    //Category
+    Route::resource('categories', CategoryController::class)->only(['index']);
+
+    Route::get('category', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('create_category', [CategoryController::class, 'create'])->name('create_category');
+    Route::post('add_category', [CategoryController::class, 'store'])->name('add_category');
+    Route::get('edit_category/{id}', [CategoryController::class, 'edit'])->name('edit_category');
+    Route::put('update_category/{id}', [CategoryController::class, 'update'])->name('update_category');
+    Route::delete('category/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
     // Logs pages
     Route::prefix('log')->name('log.')->group(function () {
