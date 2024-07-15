@@ -104,7 +104,7 @@ public function trash(Request $request)
 {
     $perPage = $request->input('per_page', 10);
 
-        $identities = Customer::onlyTrashed()->paginate($perPage);
+    $identities = Customer::onlyTrashed()->paginate($perPage);
 
     $info = auth()->user()->info;
     return view('pages.identity.customer-trash', compact('identities', 'perPage', 'info'));
