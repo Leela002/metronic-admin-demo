@@ -64,7 +64,7 @@
                 <div class="py-2">
                     <!--begin::Input group-->
                     <div class="row g-9 mb-7">
-                        <div class="col-md-3 fv-row mb-3">
+                        <div class="col-md-6 fv-row mb-3">
                             <!--First Name-->
                             <label class="required fs-6 fw-semibold mb-2"> First Name</label>
                             <input class="form-control form-control-solid" placeholder="" name="first_name"
@@ -73,7 +73,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-md-3 fv-row mb-3">
+                        <div class="col-md-6 fv-row mb-3">
                             <label class="required fs-6 fw-semibold mb-2"> Last Name </label>
                             <input class="form-control form-control-solid" placeholder="" name="last_name"
                                 value="{{ old('last_name', $identity->last_name) }}" />
@@ -85,7 +85,7 @@
                         <!--end::Input group-->
 
 
-                        <div class="col-md-3 fv-row">
+                        <div class="col-md-6 fv-row">
                             <label class="required fs-6 fw-semibold mb-2">Gender</label>
                             <div class="custom-select-with-arrow">
                                 <select class="form-control form-control-solid" name="gender">
@@ -103,7 +103,7 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-3 fv-row mb-3">
+                        <div class="col-md-6 fv-row mb-3">
                             <label class="required fs-6 fw-semibold mb-2">Blood Group</label>
                             <div class="custom-select-with-arrow">
                                 <select class="form-control form-control-solid" name="blood_group">
@@ -126,7 +126,7 @@
 
                     <!--begin::Input group-->
                     <div class="row g-9 mb-7">
-                        <div class="col-md-4 fv-row mb-3">
+                        <div class="col-md-6 fv-row mb-3">
                             <label class="required fs-6 fw-semibold mb-2">Contact Number</label>
                             <input class="form-control form-control-solid" placeholder="" name="contact"
                                 value="{{ old('contact', $identity->contact) }}" />
@@ -137,7 +137,7 @@
 
 
                         <!--Add email and contact fields similar to others-->
-                        <div class="col-md-4 fv-row mb-3">
+                        <div class="col-md-6 fv-row mb-3">
                             <label class="required fs-6 fw-semibold mb-2">Email</label>
                             <input class="form-control form-control-solid" placeholder="" name="email"
                                 value="{{ old('email', $identity->email) }}" />
@@ -146,7 +146,7 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-4 fv-row">
+                        <div class="col-md-6 fv-row">
                             <label class="required fs-6 fw-semibold mb-2">Date Of Birth</label>
                             <input type="date" class="form-control form-control-solid" name="dob"
                                 value="{{ old('dob', $identity->dob) }}" id="dob" />
