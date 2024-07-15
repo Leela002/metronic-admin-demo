@@ -24,21 +24,11 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search', '');
-       $perPage = $request->input('per_page', 5);
 
-
-        if($search != ""){
-            $identities = Customer::where('first_name','LIKE',"%$search%")
-            ->orWhere('last_name','LIKE',"%$search%")
-            ->orWhere('email','LIKE',"%$search%")
-            ->orWhere('contact','LIKE',"%$search%")
-            ->get();
-        }else{
-            $identities = Customer::paginate($perPage);
-        }
+        $perPage = $request->input('per_page', 10);
+        $identities = Customer::paginate($perPage);
         $info = auth()->user()->info;
-        return view('pages.identity.index', compact('info', 'identities', 'search', 'perPage'));
+        return view('pages.identity.index', compact('info', 'identities', 'perPage'));
     }
 
     public function create()
@@ -112,21 +102,12 @@ class CustomerController extends Controller
 
 public function trash(Request $request)
 {
-    $perPage = $request->input('per_page', 5);
-    $search = $request->input('search', '');
+    $perPage = $request->input('per_page', 10);
 
-
-    if($search != ""){
-        $identities = Customer::where('first_name','LIKE',"%$search%")
-        ->orWhere('last_name','LIKE',"%$search%")
-        ->orWhere('email','LIKE',"%$search%")
-        ->orWhere('contact','LIKE',"%$search%")
-        ->get();
-    }else{
         $identities = Customer::onlyTrashed()->paginate($perPage);
-    }
+
     $info = auth()->user()->info;
-    return view('pages.identity.customer-trash', compact('identities', 'perPage', 'search', 'info'));
+    return view('pages.identity.customer-trash', compact('identities', 'perPage', 'info'));
 }
 
 public function forceDelete($id)
