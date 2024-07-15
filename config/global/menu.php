@@ -267,7 +267,7 @@ return array(
 
         ////Setting
         array(
-            'title' => 'Setting',
+            'title' => 'Settings',
             'icon' => '<i class="bi bi-gear-fill" style="font-weight: 600;font-size: 18px;"></i>',
 
             'classes' => array('item' => 'menu-accordion'),
