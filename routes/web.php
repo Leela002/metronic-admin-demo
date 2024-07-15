@@ -12,6 +12,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Identity\CustomerController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -97,14 +98,18 @@ Route::middleware('auth')->group(function () {
 
     ////setting 
     Route::prefix('setting')->group(function () {
+        // social_media
         Route::get('social_media', [SettingController::class, 'index'])->name('social_media.index');
         Route::get('social_media/create', [SettingController::class, 'create'])->name('social_media.create');
         Route::post('social_media/store', [SettingController::class, 'store'])->name('social_media.store');
         Route::get('social_media/edit/{id}', [SettingController::class, 'edit'])->name('social_media.edit');
-        Route::post('social_media/update', [SettingController::class, 'update'])->name('social_media.update'); // Change to PUT
+        Route::post('social_media/update', [SettingController::class, 'update'])->name('social_media.update');
         Route::delete('social_media/destroy/{id}', [SettingController::class, 'destroy'])->name('social_media.destroy');
-
+        // Push Notification
+        Route::get('push_notification', [PushNotificationController::class, 'index'])->name('push_notification.index');
+        Route::post('push_notification/store', [PushNotificationController::class, 'store'])->name('push_notification.store');
     });
+
 
     //Parameter Master
     Route::resource('parameters', ParameterMasterController::class)->only(['index']);

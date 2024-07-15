@@ -283,6 +283,11 @@ return array(
                         'path' => 'setting/social_media',
                         'bullet' => '<span class="bullet bullet-dot"></span>',
                     ),
+                    array(
+                        'title' => 'Push Notification',
+                        'path' => 'setting/push_notification',
+                        'bullet' => '<span class="bullet bullet-dot"></span>',
+                    ),
 
                 ),
             ),

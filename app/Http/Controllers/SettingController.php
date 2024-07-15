@@ -72,7 +72,7 @@ class SettingController extends Controller
         // Validate the request data
         $validatedData = $request->validate([
             'name' => 'required',
-            'url' => 'required|url',  // Ensure 'url' field contains a valid URL
+            'url' => 'required|url',
         ]);
 
         // Create a new social media setting
@@ -88,9 +88,9 @@ class SettingController extends Controller
         $social = Setting::find($id);
         if ($social) {
             $social->delete();
-            return redirect()->route('roles.index')->with('success', 'Role deleted successfully');
+            return redirect()->route('social_media.index')->with('success', 'Role deleted successfully');
         } else {
-            return redirect()->route('roles.index')->with('error', 'Role not found');
+            return redirect()->route('social_media.index')->with('error', 'Role not found');
         }
     }
 
