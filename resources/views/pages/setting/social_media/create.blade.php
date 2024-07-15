@@ -22,8 +22,9 @@
                     <div class="col-md-12">
                         <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
                             <div class="card-body p-9">
-                            <form name="create_employee" action="{{ route('social_media.store') }}" method="POST">
-                            @csrf
+                                <form name="create_employee" action="{{ route('social_media.store') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
                                     <div class="py-2">
                                         <div class="row g-9 mb-7">
                                             <div class="col-md-6 fv-row">
@@ -43,6 +44,23 @@
                                                 @enderror
                                             </div>
                                         </div>
+
+                                        <div class="row g-9 mb-7">
+                                            <div class="col-md-6 fv-row">
+                                                <div class="custom-file">
+                                                    <label class="required fs-6 fw-semibold mb-2">Upload Icon</label>
+                                                    <input type="file" accept="image/*"
+                                                        class="form-control form-control-solid custom-file-input"
+                                                        name="icon" placeholder="" id="customFile"
+                                                        value="{{ old('icon') }}" />
+                                                    @error('icon')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
+
 
                                         <div class="d-flex justify-content-end align-items-center mt-12">
                                             <a href="{{ route('social_media.index') }}"
