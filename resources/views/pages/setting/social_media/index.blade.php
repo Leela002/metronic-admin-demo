@@ -145,8 +145,27 @@
                     <!-- end::Table body -->
                 </table>
             </div>
+
+            <div class="row mt-5">
+                <div class="col d-flex justify-content-start">
+                    <form id="rowsPerPageForm" action="{{ route('social_media.index') }}" method="GET">
+                        <select name="per_page" id="per_page" class="form-select"
+                            onchange="document.getElementById('rowsPerPageForm').submit()">
+
+                            <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                            <option value="30" {{ $perPage == 30 ? 'selected' : '' }}>30</option>
+                            <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    {{  $socials->appends(['per_page' => $perPage])->links('pagination::bootstrap-4') }}
+                </div>
+            </div>
         </div>
         <!-- end::Card body -->
+
     </div>
     <!-- end::Card -->
     </div>
