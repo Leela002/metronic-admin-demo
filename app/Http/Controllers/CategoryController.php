@@ -43,13 +43,6 @@ class CategoryController extends Controller
     {
         $requestData = $request->all();
         $requestData['created_by'] = Auth::user()->name;
-        // Handle file upload
-        if ($request->hasFile('upload_icon')) {
-            $file = $request->file('upload_icon');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/icons'), $filename);  // Save file in 'public/uploads/icons' directory
-            $requestData['upload_icon'] = $filename;
-        }
         Category::create($requestData);
 
         return redirect()->route('category.index')
