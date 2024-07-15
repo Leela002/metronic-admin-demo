@@ -23,8 +23,9 @@ class SettingController extends Controller
      */
     public function index(Request $request)
     {
-        $socials = Setting::all();
-        return view('pages.setting.social_media.index', compact('socials'));
+        $perPage = $request->input('per_page', 10);
+        $socials = Setting::paginate($perPage);
+        return view('pages.setting.social_media.index', compact('socials', 'perPage'));
     }
     /**
      * Show the form for creating a new resource.
