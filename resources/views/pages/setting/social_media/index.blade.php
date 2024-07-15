@@ -120,9 +120,7 @@
                         @foreach ($socials as $social)
                             <tr>
                                 <td class="p-2 pb-3 w-50px text-center">{{$social->id }}</td>
-                                <td class="p-2 pb-3 w-50px text-center">{{ $social->name }}
-
-                                </td>
+                                <td class="p-2 pb-3 w-50px text-center">{{ $social->name }}</td>
                                 <td class="p-2 pb-3 w-50px text-center">{{$social->url }}</td>
                                 <td class="p-2 pb-3 w-50px text-center">{{ $social->created_at }}</td>
                                 <td class="p-2 pb-3 w-50px text-center">{{ $social->updated_at }}</td>
