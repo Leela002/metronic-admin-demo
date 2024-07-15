@@ -8,11 +8,11 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Spatie\Permission\Middlewares\PermissionMiddleware;
 use Illuminate\Support\Facades\Mail;
-use Request;
 
 class CategoryController extends Controller
 {
@@ -28,10 +28,11 @@ class CategoryController extends Controller
       
     //  }
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
-        return view('master_data.category.index', ['categories' => $categories]);
+        $perPage = $request->input('per_page', 10);
+        $categories = Category::paginate($perPage);
+        return view('master_data.category.index', compact('categories', 'perPage'));
     }
 
     public function create(): View
