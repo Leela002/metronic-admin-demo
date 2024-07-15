@@ -12,7 +12,7 @@ class Customer extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'customer';
+ protected $table = 'customer';
     protected $fillable = [
         'first_name',
         'last_name',

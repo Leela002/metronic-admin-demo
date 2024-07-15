@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use App\Models\Setting;
+use App\Models\Upload;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Support\Facades\Hash;
@@ -40,8 +41,29 @@ class SettingController extends Controller
         // Validate the request data
         $validatedData = $request->validate([
             'name' => 'required|unique:social_media|max:50',
-            'url' => 'required|url',  // Ensure 'url' field contains a valid URL
+            'url' => 'required|url',
+            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+        ], [
+            'icon.required' => 'The Upload Icon field is required.',
+            'icon.image' => 'The Upload Icon must be an image.',
+            'icon.mimes' => 'The Upload Icon must be a file of type: jpeg, png, jpg, gif, svg.',
+            'icon.max' => 'The Upload Icon may not be greater than 2MB.'
         ]);
+
+        if ($request->hasFile('icon')) {
+            $file = $request->file('icon');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $filePath = 'uploads/icons/' . $filename;
+            $file->move(public_path('uploads/icons'), $filename);
+
+            // Save to upload_master
+            $upload = new Upload();
+            $upload->name = $filename;
+            $upload->size = $file->getSize();
+            $upload->type = $file->getClientMimeType();
+            $upload->path = $filePath;
+            $upload->save();
+        }
 
         // Create a new social media setting
         $social = new Setting();
@@ -52,6 +74,7 @@ class SettingController extends Controller
         // Redirect to the index page with a success message
         return redirect()->route('social_media.index')->with('success', 'Social media setting created successfully!');
     }
+
     /**
      * Display the specified resource.
      */
