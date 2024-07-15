@@ -100,8 +100,7 @@
                         <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
                         <th class="min-w-175px text-center">Id</th>
                             <th class="min-w-175px text-center">Category Name</th>
-                            <th class="min-w-175px text-center">Status</th>
-                            <th class="min-w-175px text-center">Icon</th>                          
+                            <th class="min-w-175px text-center">Status</th>                  
                             <th class="min-w-175px text-center">Created&nbsp;At</th>
                             <th class="min-w-175px text-center">Updated&nbsp;At</th>
                             <th class="min-w-175px text-center">Created&nbsp;By</th>
@@ -117,9 +116,6 @@
                                         <td class="p-0 pb-3 w-50px text-center">{{$category->id}}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$category->category_name }}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$category->status }}</td>
-                                            <td class="p-0 pb-3 w-50px text-center">
-                                                <img src="{{ asset('public/uploads/icons/' . $category->upload_icon) }}" alt="{{ $category->category_name }}" style="max-width: 50px; max-height: 50px;">
-                                            </td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$category->created_at}}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$category->updated_at}}</td>
                                             <td class="p-0 pb-3 w-50px text-center">{{$category->created_by}}</td>

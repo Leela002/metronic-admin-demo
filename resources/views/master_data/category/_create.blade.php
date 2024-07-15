@@ -22,7 +22,7 @@
                     <div class="col-md-12">
                         <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
                             <div class="card-body p-9">
-                                <form name="create_employee" action="{{ url('add_category') }}" method="POST" enctype="multipart/form-data">
+                                <form name="create_employee" action="{{ url('add_category') }}" method="POST">
                                     @csrf
                                     <div class="py-2">
                                         <div class="row g-9 mb-7">
@@ -43,18 +43,6 @@
                                                 @error('status')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="row g-9 mb-7">
-                                            <div class="col-md-6 fv-row">
-                                                <div class="custom-file">
-                                                    <label class="required fs-6 fw-semibold mb-2">Upload Icon</label>
-                                                    <input type="file" accept="image/*" class="form-control form-control-solid custom-file-input" name="upload_icon" placeholder="" id="customFile" value="{{ old('upload_icon') }}" />
-                                                    @error('upload_icon')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
                                             </div>
                                         </div>
 
