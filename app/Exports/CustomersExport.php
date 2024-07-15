@@ -53,7 +53,13 @@ class CustomersExport
                 $sheet->setCellValue('H' . $rowNumber, $customer->dob);
                 $sheet->setCellValue('I' . $rowNumber, $customer->created_at);
                 $sheet->setCellValue('J' . $rowNumber, $customer->created_by);
-                $sheet->setCellValue('K' . $rowNumber, $customer->updated_at);
+                if($customer->created_at == $customer->updated_at){
+                    $sheet->setCellValue('K' . $rowNumber, ' ');
+                }elseif($customer->updated_by == null){
+                    $sheet->setCellValue('K' . $rowNumber, ' ');
+                }else{
+                    $sheet->setCellValue('K' . $rowNumber, $customer->updated_at);
+                }
                 $sheet->setCellValue('L' . $rowNumber, $customer->updated_by);
                 $rowNumber++;
             }

@@ -102,7 +102,7 @@
                         style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Customer') }}</a>
                     <a href="{{ route('profile.trash') }}" class="btn btn-primary ms-auto"
                         style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Deleated Customers') }}</a>
-                        <a href="{{ route('profile.export') }}" id="exportButton" class="btn btn-primary">
+                        <a href="javascript:void(0)" id="exportButton" class="btn btn-primary">
                             Export
                         </a>
                 </div>
@@ -151,6 +151,8 @@
                                 <td class="p-0 pb-3 w-50px text-center">{{ $identity->dob }}</td>
                                 <td class="p-0 pb-3 w-50px text-center">{{ $identity->created_at }}</td>
                                 @if ($identity->updated_at == $identity->created_at)
+                               <td class="p-0 pb-3 w-50px text-center">-</td>
+                                @elseif($identity->updated_by == null)
                                     <td class="p-0 pb-3 w-50px text-center">-</td>
                                 @else
                                     <td class="p-0 pb-3 w-50px text-center">{{ $identity->updated_at }}</td>
@@ -251,58 +253,41 @@
     });
 </script>
 <script>
-    $(document).ready(function () {
-        $('#exportButton').click(function (e) {
+    $(document).ready(function() {
+        $('#exportButton').click(function(e) {
             e.preventDefault(); // Prevent default link behavior
+
+            // Get current date and time
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = ('0' + (now.getMonth() + 1)).slice(-2);
+            var day = ('0' + now.getDate()).slice(-2);
+            var hours = ('0' + now.getHours()).slice(-2);
+            var minutes = ('0' + now.getMinutes()).slice(-2);
+            var fileName = 'customers_export_' + day +'_'+ month +'_'+ year +'.xlsx';
 
             // Make AJAX call to fetch data
             $.ajax({
                 url: '{{ route("profile.export") }}',
                 method: 'GET',
-                success: function (response) {
-                    // Check for success response
-                    if (response.data) {
-                        // Spread data according to column width
-                        const colWidth = {};
-                        response.data.forEach((row) => {
-                            Object.keys(row).forEach((key) => {
-                                const headerLength = key.toString().length;
-                                const cellData = row[key];
-                                if (cellData !== null && cellData !== undefined) {
-                                    const cellLength = cellData.toString().length;
-                                    const maxColumnWidth = Math.max(headerLength, cellLength);
-                                    const currentWidth = colWidth[key] || 0;
-                                    if (maxColumnWidth > currentWidth) {
-                                        colWidth[key] = maxColumnWidth;
-                                    }
-                                } else {
-                                    const currentWidth = colWidth[key] || 0;
-                                    if (headerLength > currentWidth) {
-                                        colWidth[key] = headerLength;
-                                    }
-                                }
-                            });
-                        });
-
-                        // Convert data to xlsx
-                        var wb = XLSX.utils.book_new();
-                        var ws = XLSX.utils.json_to_sheet(response.data);
-
-                        // Set column widths
-                        ws['!cols'] = [];
-                        Object.keys(colWidth).forEach((key) => {
-                            ws['!cols'].push({ wch: colWidth[key] });
-                        });
-
-                        XLSX.utils.book_append_sheet(wb, ws, "Clients");
-
-                        // Save the file
-                        XLSX.writeFile(wb, 'clients.xlsx');
-                    } else {
-                        alert('Failed to fetch data.');
-                    }
+                xhrFields: {
+                    responseType: 'blob'
                 },
-                error: function (xhr, status, error) {
+                success: function(response) {
+                    // Create a new Blob object using the response data
+                    var blob = new Blob([response], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+
+                    // Create a link element, set its download attribute, and trigger the download
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                },
+                error: function(xhr, status, error) {
                     console.error(xhr.responseText);
                     alert('Error occurred while fetching data.');
                 }
