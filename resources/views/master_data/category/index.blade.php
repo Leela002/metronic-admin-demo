@@ -101,7 +101,7 @@
                         <th class="min-w-175px text-center">Id</th>
                             <th class="min-w-175px text-center">Category Name</th>
                             <th class="min-w-175px text-center">Status</th>
-                            <th class="min-w-175px text-center">Image</th>                          
+                            <th class="min-w-175px text-center">Icon</th>                          
                             <th class="min-w-175px text-center">Created&nbsp;At</th>
                             <th class="min-w-175px text-center">Updated&nbsp;At</th>
                             <th class="min-w-175px text-center">Created&nbsp;By</th>
