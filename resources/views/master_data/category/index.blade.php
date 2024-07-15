@@ -141,6 +141,21 @@
         <!-- end::Card body -->
     </div>
     <!-- end::Card -->
+    <div class="row">
+        <div class="col d-flex justify-content-start">
+            <form id="rowsPerPageForm" action="{{ route('category.index') }}" method="GET">
+                <select name="per_page" id="per_page" class="form-select"
+                    onchange="document.getElementById('rowsPerPageForm').submit()">
+                    <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                    <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                    <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
+                </select>
+            </form>
+        </div>
+        <div class="col d-flex justify-content-end">
+            {{ $categories->appends(['per_page' => $perPage])->links('pagination::bootstrap-4') }}
+        </div>
+    </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>

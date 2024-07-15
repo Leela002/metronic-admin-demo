@@ -11,6 +11,7 @@ use App\Http\Requests\StoreParameterMasterRequest;
 use App\Http\Requests\UpdateParameterMasterRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Spatie\Permission\Middlewares\PermissionMiddleware;
@@ -30,10 +31,11 @@ class ParameterMasterController extends Controller
       
     //  }
 
-    public function index(ParameterMasterDataTable $dataTable): mixed
+    public function index(Request $request)
     {
-        $identities = ParameterMaster::all();
-        return view('master_data.parameter_master.index', ['identities' => $identities]);
+        $perPage = $request->input('per_page', 10);
+        $identities = ParameterMaster::paginate($perPage);
+        return view('master_data.parameter_master.index', compact('identities', 'perPage'));
     }
     /**
      * Show the form for creating a new resource.
