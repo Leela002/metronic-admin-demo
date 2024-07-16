@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Models\Upload;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,11 +45,41 @@ class CategoryController extends Controller
     {
         $requestData = $request->all();
         $requestData['created_by'] = Auth::user()->name;
-        Category::create($requestData);
 
+        $category = Category::create($requestData);
+        
+        // Handle file upload
+        if ($request->hasFile('upload_icon')) {
+            $file = $request->file('upload_icon');
+    
+            // Ensure the file was uploaded correctly
+            if ($file->isValid()) {
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $filePath = 'uploads/icons/' . $filename;
+                $file->move(public_path('uploads/icons'), $filename);  // Save file in 'public/uploads/icons' directory
+                $requestData['upload_icon'] = $filename;
+    
+                // Get the file size after moving it
+                $fileSize = filesize(public_path('uploads/icons/' . $filename));
+    
+                $upload = new Upload();
+                $upload->name = $filename;
+                $upload->size = $fileSize; // Use the previously obtained file size
+                $upload->type = $file->getClientMimeType();
+                $upload->path = $filePath;
+                $upload->ref_id = $category->id;
+                $upload->module = 'Category';
+                $upload->save();
+            } else {
+                return redirect()->back()->withErrors(['upload_icon' => 'File upload failed. Please try again.']);
+            }
+        }
+        
+        
+    
         return redirect()->route('category.index')
             ->with('success', 'Category created successfully.');
-    }
+    }    
 
     public function edit(Category $id): View
     {
