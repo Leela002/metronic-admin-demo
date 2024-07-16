@@ -22,7 +22,7 @@
                     <div class="col-md-12">
                         <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
                             <div class="card-body p-9">
-                                <form name="create_employee" action="{{ route('update_category', $category->id) }}" method="POST">
+                                <form name="create_employee" action="{{ route('update_category', $category->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="py-2">
@@ -46,6 +46,23 @@
                                                 @enderror
                                             </div>
                                         </div>
+
+                                        <div class="row g-9 mb-7">
+                                            <div class="col-md-6 fv-row">
+                                                <div class="custom-file">
+                                                    <label class="required fs-6 fw-semibold mb-2">Upload Icon</label>
+                                                    <!-- Display the current uploaded image name -->
+                                                    @if($category->upload_icon)
+                                                        <input type="text" class="form-control form-control-solid mb-2" value="{{ $category->upload_icon }}" readonly />
+                                                    @endif
+                                                    <input type="file" accept="image/*" class="form-control form-control-solid custom-file-input" name="upload_icon" placeholder="" id="customFile" />
+                                                    @error('upload_icon')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="d-flex justify-content-end align-items-center mt-12">
                                             <!--begin::Button-->
                                             <a href="{{ route('category.index') }}" class="btn btn-secondary me-5 px-4 m-2">Cancel</a>

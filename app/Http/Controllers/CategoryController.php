@@ -74,8 +74,6 @@ class CategoryController extends Controller
                 return redirect()->back()->withErrors(['upload_icon' => 'File upload failed. Please try again.']);
             }
         }
-        
-        
     
         return redirect()->route('category.index')
             ->with('success', 'Category created successfully.');
@@ -90,20 +88,59 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, $id): RedirectResponse
     {
         $requestData = $request->all();
-        $requestData['updated_by'] = Auth::user()->name;
-    
-        // Find the record by its ID
-        $category = Category::find($id);
-        if ($category) {
-            // Update the record
-            $category->update($requestData);
-    
-            return redirect()->route('category.index')
-                ->with('success', 'Category updated successfully.');
+        $category = Category::findOrFail($id);
+
+        // Update category attributes
+        $category->update([
+            'category_name' => $requestData['category_name'],
+            'status' => $requestData['status'],
+            'created_by' => Auth::user()->name,
+        ]);
+
+        // Handle file upload
+        if ($request->hasFile('upload_icon')) {
+            $file = $request->file('upload_icon');
+
+            // Ensure the file was uploaded correctly
+            if ($file->isValid()) {
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $filePath = 'uploads/icons/' . $filename;
+                $file->move(public_path('uploads/icons'), $filename); // Save file in 'public/uploads/icons' directory
+                $requestData['upload_icon'] = $filename;
+
+                // Get the file size after moving it
+                $fileSize = filesize(public_path('uploads/icons/' . $filename));
+
+                // Delete the old icon file if it exists
+                if ($category->upload_icon) {
+                    $oldFilePath = public_path('uploads/icons/' . $category->upload_icon);
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath);
+                    }
+                }
+
+                // Update the category with the new icon filename
+                $category->update(['upload_icon' => $filename]);
+
+                // Update the existing upload record
+                $upload = Upload::where('ref_id', $category->id)
+                                ->where('module', 'Category')
+                                ->first();
+                if ($upload) {
+                    $upload->update([
+                        'name' => $filename,
+                        'size' => $fileSize, // Use the previously obtained file size
+                        'type' => $file->getClientMimeType(),
+                        'path' => $filePath,
+                    ]);
+                }
+            } else {
+                return redirect()->back()->withErrors(['upload_icon' => 'File upload failed. Please try again.']);
+            }
         }
-    
+
         return redirect()->route('category.index')
-            ->with('error', 'Category not found.');
+            ->with('success', 'Category updated successfully.');
     }
 
     public function destroy($id)
