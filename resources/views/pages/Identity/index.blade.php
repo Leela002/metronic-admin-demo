@@ -102,9 +102,60 @@
                         style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Add Customer') }}</a>
                     <a href="{{ route('profile.trash') }}" class="btn btn-primary ms-auto"
                         style="padding: calc(0.775rem + 1px) calc(1.5rem + 1px) !important;">{{ __('Deleated Customers') }}</a>
-                        <a href="javascript:void(0)" id="exportButton" class="btn btn-primary">
-                            Export
-                        </a>
+                    <a href="javascript:void(0)" id="exportButton" class="btn btn-primary">
+                        Export
+                    </a>
+                </div>
+            </div>
+            <div>
+                <div class="row mb-xl-3">
+                    <form id="filterForm" action="{{ route('profile.index') }}" method="GET">
+                        <div class="col-md-2 form-group position-relative">
+                            <label for="created_at_month">Created Month</label>
+                            <input type="month" id="created_at_month" name="created_at_month"
+                                class="date form-control cursor-pointer"
+                                value="{{ request('created_at_month', date('Y-m')) }}"
+                                onchange="document.getElementById('filterForm').submit();" max="{{ date('Y-m') }}">
+                        </div>
+                    </form>
+                    <form id="filterForm" action="{{ route('profile.index') }}" method="GET">
+                        <div class="col-md-2 form-group position-relative">
+                            <label for="dob_month">DOB Month</label>
+                            <input type="month" id="dob_month" name="dob_month"
+                                class="date form-control cursor-pointer"
+                                value="{{ request('dob_month', date('Y-m')) }}"
+                                onchange="document.getElementById('filterForm').submit();" max="{{ date('Y-m') }}">
+                        </div>
+                    </form>
+                    <form id="filterForm" action="{{ route('profile.index') }}" method="GET">
+                        <div class="col-md-2 form-group position-relative">
+                            <label for="blood_group">Blood Group</label>
+                            <select id="blood_group" name="blood_group" class="form-select"
+                                onchange="document.getElementById('filterForm').submit();">
+                                <option value="">All</option>
+                                <option value="A+" {{ request('blood_group') == 'A+' ? 'selected' : '' }}>A+
+                                </option>
+                                <option value="A-" {{ request('blood_group') == 'A-' ? 'selected' : '' }}>A-
+                                </option>
+                                <option value="B+" {{ request('blood_group') == 'B+' ? 'selected' : '' }}>B+
+                                </option>
+                                <option value="B-" {{ request('blood_group') == 'B-' ? 'selected' : '' }}>B-
+                                </option>
+                                <option value="AB+" {{ request('blood_group') == 'AB+' ? 'selected' : '' }}>AB+
+                                </option>
+                                <option value="AB-" {{ request('blood_group') == 'AB-' ? 'selected' : '' }}>AB-
+                                </option>
+                                <option value="O+" {{ request('blood_group') == 'O+' ? 'selected' : '' }}>O+
+                                </option>
+                                <option value="O-" {{ request('blood_group') == 'O-' ? 'selected' : '' }}>O-
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mt-6">
+                            <button type="button" class="btn btn-primary"
+                                id="resetButton">{{ __('Reset') }}</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <!--end::Card title-->
@@ -114,7 +165,8 @@
         <div class="card m-5 p-4">
             <div class="row mb-xl-3">
                 <div class="d-flex align-items-center position-relative my-1 w-100">
-                    <input type="text" class="form-control form-control-solid w-200px ps-13" placeholder="Search" id="mySearchInput" />
+                    <input type="text" class="form-control form-control-solid w-200px ps-13" placeholder="Search"
+                        id="mySearchInput" />
                 </div>
             </div>
             <div class="table-responsive signing_fees">
@@ -151,7 +203,7 @@
                                 <td class="p-0 pb-3 w-50px text-center">{{ $identity->dob }}</td>
                                 <td class="p-0 pb-3 w-50px text-center">{{ $identity->created_at }}</td>
                                 @if ($identity->updated_at == $identity->created_at)
-                               <td class="p-0 pb-3 w-50px text-center">-</td>
+                                    <td class="p-0 pb-3 w-50px text-center">-</td>
                                 @elseif($identity->updated_by == null)
                                     <td class="p-0 pb-3 w-50px text-center">-</td>
                                 @else
@@ -194,7 +246,7 @@
             </form>
         </div>
         <div class="col d-flex justify-content-end">
-            {{ $identities->appends(['per_page' => $perPage])->links('pagination::bootstrap-4') }}
+            {{ $identities->appends(['per_page' => $perPage, 'created_at_month' => request('created_at_month')])->links('pagination::bootstrap-4') }}
         </div>
     </div>
     <!-- end::Card -->
@@ -263,11 +315,11 @@
             var day = ('0' + now.getDate()).slice(-2);
             var hours = ('0' + now.getHours()).slice(-2);
             var minutes = ('0' + now.getMinutes()).slice(-2);
-            var fileName = 'customers_export_' + day +'_'+ month +'_'+ year +'.xlsx';
+            var fileName = 'customers_export_' + day + '_' + month + '_' + year + '.xlsx';
 
             // Make AJAX call to fetch data
             $.ajax({
-                url: '{{ route("profile.export") }}',
+                url: '{{ route('profile.export') }}',
                 method: 'GET',
                 xhrFields: {
                     responseType: 'blob'
@@ -291,6 +343,25 @@
                     alert('Error occurred while fetching data.');
                 }
             });
+        });
+        $('#resetButton').click(function() {
+            $('#created_at_month').val('');
+            $('#filterForm').submit();
+        });
+
+        $('#month, #year').change(function() {
+            $('#filterForm').submit();
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('resetButton').addEventListener('click', function() {
+            // Clear the input fields
+            document.getElementById('created_at_month').value = '';
+            document.getElementById('dob_month').value = '';
+            // Submit the form
+            document.getElementById('filterForm').submit();
         });
     });
 </script>
