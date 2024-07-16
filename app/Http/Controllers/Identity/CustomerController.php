@@ -14,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Carbon;
 
 class CustomerController extends Controller
 {
@@ -23,13 +24,32 @@ class CustomerController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Request $request)
-    {
+{
+    $perPage = $request->input('per_page', 10);
+    $query = Customer::query();
 
-        $perPage = $request->input('per_page', 10);
-        $identities = Customer::paginate($perPage);
-        $info = auth()->user()->info;
-        return view('pages.identity.index', compact('info', 'identities', 'perPage'));
+    // Filtering by created_at_month
+    if ($request->has('created_at_month') && $request->created_at_month) {
+        $date = \Carbon\Carbon::createFromFormat('Y-m', $request->created_at_month);
+        $query->whereYear('created_at', $date->year)->whereMonth('created_at', $date->month);
     }
+
+    // Filtering by dob_month
+    if ($request->has('dob_month') && $request->dob_month) {
+        $date = \Carbon\Carbon::createFromFormat('Y-m', $request->dob_month);
+        $query->whereYear('dob', $date->year)->whereMonth('dob', $date->month);
+    }
+
+    // Filtering by blood_group
+    if ($request->has('blood_group') && $request->blood_group) {
+        $query->where('blood_group', $request->blood_group);
+    }
+
+    $identities = $query->paginate($perPage);
+    $info = auth()->user()->info;
+    return view('pages.identity.index', compact('info', 'identities', 'perPage'));
+}
+
 
     public function create()
     {
@@ -58,74 +78,73 @@ class CustomerController extends Controller
     }
 
     public function update(UpdateCustomerRequest $request, Customer $id): RedirectResponse
-{
-    // Get all validated data from the request
-    $requestData = $request->validated();
+    {
+        // Get all validated data from the request
+        $requestData = $request->validated();
 
-    // Add the 'updated_by' field
-    $requestData['updated_by'] = Auth::user()->name;
+        // Add the 'updated_by' field
+        $requestData['updated_by'] = Auth::user()->name;
 
-    // Update the customer record with the validated data
-    $id->update($requestData);
+        // Update the customer record with the validated data
+        $id->update($requestData);
 
-    return redirect()->route('profile.index')
-        ->with('success', 'Customer updated successfully.');
-}
+        return redirect()->route('profile.index')
+            ->with('success', 'Customer updated successfully.');
+    }
 
 
     public function destroy($id)
-{
-    $identity = Customer::find($id);
+    {
+        $identity = Customer::find($id);
 
-    if($identity) {
-        $identity->delete();
-        return response()->json(['success' => true]);
-    } else {
-        return response()->json(['success' => false]);
+        if ($identity) {
+            $identity->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
-}
 
 
     public function restore($id)
-{
-    $identity = Customer::withTrashed()->find($id);
+    {
+        $identity = Customer::withTrashed()->find($id);
 
-    if($identity) {
-        $identity->restore();
-        return response()->json(['success' => true]);
-    } else {
-        return response()->json(['success' => false]);
+        if ($identity) {
+            $identity->restore();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
-}
 
 
 
-public function trash(Request $request)
-{
-    $perPage = $request->input('per_page', 10);
+    public function trash(Request $request)
+    {
+        $perPage = $request->input('per_page', 10);
 
-    $identities = Customer::onlyTrashed()->paginate($perPage);
+        $identities = Customer::onlyTrashed()->paginate($perPage);
 
-    $info = auth()->user()->info;
-    return view('pages.identity.customer-trash', compact('identities', 'perPage', 'info'));
-}
-
-public function forceDelete($id)
-{
-    try {
-        $customer = Customer::onlyTrashed()->findOrFail($id);
-        $customer->forceDelete();
-
-        return response()->json(['success' => true, 'message' => 'Record deleted permanently.']);
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'message' => 'Failed to delete the record permanently.']);
+        $info = auth()->user()->info;
+        return view('pages.identity.customer-trash', compact('identities', 'perPage', 'info'));
     }
-}
 
-public function exportData(Request $request)
+    public function forceDelete($id)
+    {
+        try {
+            $customer = Customer::onlyTrashed()->findOrFail($id);
+            $customer->forceDelete();
+
+            return response()->json(['success' => true, 'message' => 'Record deleted permanently.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to delete the record permanently.']);
+        }
+    }
+
+    public function exportData(Request $request)
     {
         $export = new CustomersExport();
         return $export->exportData($request);
     }
-
 }
