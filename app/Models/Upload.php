@@ -16,7 +16,9 @@ class Upload extends Model
         'size',
         'type',
         'path',
-        'created_at',
+        'ref_id',
+        'module',
+       'created_at',
         'updated_at',
     ];
 

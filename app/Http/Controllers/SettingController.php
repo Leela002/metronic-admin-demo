@@ -49,6 +49,11 @@ class SettingController extends Controller
             'icon.mimes' => 'The Upload Icon must be a file of type: jpeg, png, jpg, gif, svg.',
             'icon.max' => 'The Upload Icon may not be greater than 2MB.'
         ]);
+        // Create a new social media setting
+        $social = new Setting();
+        $social->name = $validatedData['name'];
+        $social->url = $validatedData['url'];
+        $social->save();
 
         if ($request->hasFile('icon')) {
             $file = $request->file('icon');
@@ -67,14 +72,12 @@ class SettingController extends Controller
             $upload->size = $fileSize; // Use the previously obtained file size
             $upload->type = $file->getClientMimeType();
             $upload->path = $filePath;
+            $upload->ref_id = $social->id;
+            $upload->module = 'Setting';
             $upload->save();
         }
 
-        // Create a new social media setting
-        $social = new Setting();
-        $social->name = $validatedData['name'];
-        $social->url = $validatedData['url'];
-        $social->save();
+
 
         // Redirect to the index page with a success message
         return redirect()->route('social_media.index')->with('success', 'Social media setting created successfully!');
