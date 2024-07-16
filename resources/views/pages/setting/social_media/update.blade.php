@@ -13,7 +13,7 @@
         @endif
         <div class="card-header">
             <div class="card-title m-0">
-                <h3 class="fw-bolder m-0">{{ __('Add Social Media') }}</h3>
+                <h3 class="fw-bolder m-0">{{ __('Update Social Media') }}</h3>
             </div>
         </div>
         <div class="card">
@@ -23,7 +23,7 @@
                         <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
                             <div class="card-body p-9">
                                 <form name="create_employee" action="{{ url('setting/social_media/update') }}"
-                                    method="POST">
+                                    method="POST" enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="py-2">
@@ -53,6 +53,21 @@
                                                 @error('id')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-9 mb-7">
+                                            <div class="col-md-6 fv-row">
+                                                <div class="custom-file">
+                                                    <label class="required fs-6 fw-semibold mb-2">Upload Icon</label>
+                                                    <input type="file" accept="image/*"
+                                                        class="form-control form-control-solid custom-file-input"
+                                                        name="icon" placeholder="" id="customFile"
+                                                        value="{{ old('icon') }}" />
+                                                    @error('icon')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
 
