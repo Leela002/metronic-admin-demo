@@ -54,12 +54,17 @@ class SettingController extends Controller
             $file = $request->file('icon');
             $filename = time() . '_' . $file->getClientOriginalName();
             $filePath = 'uploads/icons/' . $filename;
+
+            // Get the file size before moving it
+            $fileSize = $file->getSize();
+
+            // Move the file to the desired location
             $file->move(public_path('uploads/icons'), $filename);
 
             // Save to upload_master
             $upload = new Upload();
             $upload->name = $filename;
-            $upload->size = $file->getSize();
+            $upload->size = $fileSize; // Use the previously obtained file size
             $upload->type = $file->getClientMimeType();
             $upload->path = $filePath;
             $upload->save();
