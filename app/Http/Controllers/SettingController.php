@@ -98,23 +98,62 @@ class SettingController extends Controller
         $social = Setting::findOrFail($id);
         return view('pages.setting.social_media.update', compact('social'));
     }
-
     public function update(Request $request)
     {
         // Validate the request data
         $validatedData = $request->validate([
             'name' => 'required',
             'url' => 'required|url',
+            'icon' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], [
+            'icon.image' => 'The Upload Icon must be an image.',
+            'icon.mimes' => 'The Upload Icon must be a file of type: jpeg, png, jpg, gif, svg.',
+            'icon.max' => 'The Upload Icon may not be greater than 2MB.'
         ]);
 
-        // Create a new social media setting
+        // Find the social media setting to update
         $social = Setting::findOrFail($request->id);
         $social->name = $validatedData['name'];
         $social->url = $validatedData['url'];
-        $social->save();
-        return redirect()->route('social_media.index')->with('success', 'Social media setting created successfully!');
 
+        // Handle icon update if provided
+        if ($request->hasFile('icon')) {
+            $file = $request->file('icon');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $filePath = 'uploads/icons/' . $filename;
+
+            // Get the file size before moving it
+            $fileSize = $file->getSize();
+
+            // Move the file to the desired location
+            $file->move(public_path('uploads/icons'), $filename);
+
+            // Save or update the upload record
+            $upload = Upload::where('ref_id', $social->id)
+                ->where('module', 'Setting')
+                ->first();
+
+            if (!$upload) {
+                // Create new upload record
+                $upload = new Upload();
+                $upload->ref_id = $social->id;
+                $upload->module = 'Setting';
+            }
+
+            $upload->name = $filename;
+            $upload->size = $fileSize;
+            $upload->type = $file->getClientMimeType();
+            $upload->path = $filePath;
+            $upload->save();
+        }
+
+        // Save the updated social media setting
+        $social->save();
+
+        // Redirect to the index page with a success message
+        return redirect()->route('social_media.index')->with('success', 'Social media setting updated successfully!');
     }
+
     public function destroy($id)
     {
         $social = Setting::find($id);

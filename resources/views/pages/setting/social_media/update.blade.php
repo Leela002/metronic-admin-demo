@@ -62,14 +62,14 @@
                                                     <label class="required fs-6 fw-semibold mb-2">Upload Icon</label>
                                                     <input type="file" accept="image/*"
                                                         class="form-control form-control-solid custom-file-input"
-                                                        name="icon" placeholder="" id="customFile"
-                                                        value="{{ old('icon') }}" />
+                                                        name="icon" id="customFile" value="{{ old('icon') }}" />
                                                     @error('icon')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
                                         </div>
+
 
                                         <div class="d-flex justify-content-end align-items-center mt-12">
                                             <a href="{{ route('social_media.index') }}"
